@@ -120,9 +120,12 @@ export default function WeekendAIPage() {
   const QUICK_CITIES = ['London', 'Manchester', 'Edinburgh', 'Bristol', 'Birmingham', 'New York', 'Paris', 'Barcelona', 'Tokyo', 'Dubai']
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <div className="noise-overlay" aria-hidden="true" />
+      <div className="orb orb-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.12), transparent 70%)' }} aria-hidden="true" />
+      <div className="orb orb-2" style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.08), transparent 70%)', animationDelay: '-8s' }} aria-hidden="true" />
       {/* Navbar */}
-      <nav className="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between">
+      <nav className="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🗓️</span>
           <span className="font-bold text-white text-lg">Weekend AI</span>
