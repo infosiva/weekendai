@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { MapPin, Wallet, Sparkles, Users, Calendar, ChevronDown, ChevronUp, Clock, ExternalLink, Lightbulb, Share2, RefreshCw } from 'lucide-react'
+import VoiceButton from '@/components/VoiceButton'
 
 interface Activity {
   time: string; title: string; description: string; cost: string
@@ -305,9 +306,11 @@ export default function WeekendAIPage() {
         )}
       </main>
 
-      <footer className="border-t border-white/[0.05] py-6 text-center text-white/20 text-xs mt-10">
-        Weekend AI · Stop scrolling. Start living. · Powered by AI
-      </footer>
+      <VoiceButton
+        onTranscript={(text) => setCity(text)}
+        color="#f59e0b"
+        position="bottom-right"
+      />
     </div>
   )
 }
