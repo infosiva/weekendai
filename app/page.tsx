@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { MapPin, Wallet, Sparkles, Users, Calendar, ChevronDown, ChevronUp, Clock, ExternalLink, Lightbulb, Share2, RefreshCw } from 'lucide-react'
 import VoiceButton from '@/components/VoiceButton'
+import ShareCard from '@/components/ShareCard'
 
 interface Activity {
   time: string; title: string; description: string; cost: string
@@ -297,10 +298,17 @@ export default function WeekendAIPage() {
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium bg-white/[0.06] border border-white/[0.10] text-white/60 hover:text-white transition-colors">
                 <RefreshCw size={14} /> New plan
               </button>
-              <button onClick={() => navigator.clipboard.writeText(`Check out my weekend plan for ${plan.city}: ${window.location.href}`)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium bg-gradient-to-r from-yellow-500/20 to-rose-500/20 border border-yellow-500/30 text-yellow-300 hover:bg-yellow-500/30 transition-colors">
-                <Share2 size={14} /> Share plan
-              </button>
+              <ShareCard
+                title={plan.title}
+                subtitle={`${plan.city} · ${plan.vibe} · ${plan.weather}`}
+                highlights={[
+                  ...(plan.saturday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
+                  ...(plan.sunday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
+                ]}
+                accentColor="#f59e0b"
+                productName="WeekendAI"
+                productUrl="weekendai.vercel.app"
+              />
             </div>
           </div>
         )}
