@@ -122,8 +122,8 @@ export default function WeekendAIPage() {
   return (
     <div className="min-h-screen relative">
       <div className="noise-overlay" aria-hidden="true" />
-      <div className="orb orb-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.12), transparent 70%)' }} aria-hidden="true" />
-      <div className="orb orb-2" style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.08), transparent 70%)', animationDelay: '-8s' }} aria-hidden="true" />
+      <div className="liquid-blob liquid-blob-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.12), transparent 70%)' }} aria-hidden="true" />
+      <div className="liquid-blob liquid-blob-2" style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.08), transparent 70%)', animationDelay: '-8s' }} aria-hidden="true" />
       {/* Navbar */}
       <nav className="border-b border-white/[0.06] px-6 py-4 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2">
