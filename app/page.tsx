@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 import { MapPin, Wallet, Sparkles, Users, Calendar, ChevronDown, ChevronUp, Clock, ExternalLink, Lightbulb, Share2, RefreshCw } from 'lucide-react'
 import VoiceButton from '@/components/VoiceButton'
 import ShareCard from '@/components/ShareCard'
+import { useGate } from '@/lib/shared/useGate'
+import RegisterGate from '@/lib/shared/RegisterGate'
 
 interface Activity {
   time: string; title: string; description: string; cost: string
@@ -78,6 +80,7 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
 }
 
 export default function WeekendAIPage() {
+  const { count: gateCount, showGate, increment: gateIncrement, onRegistered, dismissGate } = useGate('weekendai', 3)
   const [city, setCity]       = useState('')
   const [budget, setBudget]   = useState('')
   const [vibe, setVibe]       = useState('')
@@ -104,6 +107,8 @@ export default function WeekendAIPage() {
   async function generate(overrideCity?: string) {
     const c = overrideCity ?? city
     if (!c.trim() || !vibe) { setError('Enter a city and pick a vibe'); return }
+    const allowed = await gateIncrement()
+    if (!allowed) return
     setLoading(true); setError(null); setPlan(null)
     try {
       const res = await fetch('/api/plan', {
@@ -133,6 +138,19 @@ export default function WeekendAIPage() {
   const QUICK_CITIES = ['London', 'Manchester', 'Edinburgh', 'Bristol', 'Birmingham', 'New York', 'Paris', 'Barcelona', 'Tokyo', 'Dubai']
 
   return (
+    <>
+    {showGate && (
+      <RegisterGate
+        freeUsed={gateCount}
+        freeLimit={3}
+        freeFeature="weekend plans"
+        lockedFeature="unlimited weekend plans"
+        accentColor="#f59e0b"
+        site="weekendai"
+        onSuccess={onRegistered}
+        onDismiss={dismissGate}
+      />
+    )}
     <div className="min-h-screen relative bg-gradient-to-br from-amber-950 via-gray-950 to-emerald-950">
       <div className="noise-overlay" aria-hidden="true" />
       <div className="liquid-blob liquid-blob-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.18), transparent 70%)' }} aria-hidden="true" />
@@ -328,5 +346,6 @@ export default function WeekendAIPage() {
         position="bottom-right"
       />
     </div>
+    </>
   )
 }
