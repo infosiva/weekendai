@@ -68,6 +68,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ]
           })}}
         />
+      
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          :root {
+            --theme-primary: #ea580c;
+            --theme-secondary: #f59e0b;
+            --theme-base: #0d0702;
+            --background: #0d0702;
+            --surface-1: #1c1004;
+            --surface-2: #2a1a07;
+            --foreground: #fff7ed;
+            --text-2: #fed7aa;
+            --border-default: rgba(234,88,12,0.15);
+            --border-strong: rgba(234,88,12,0.3);
+          }
+          body { font-family: 'Inter', system-ui, sans-serif !important; }
+          h1, h2, h3 { font-family: 'Fraunces', serif !important; font-style: italic; }
+          .glass { background: rgba(13,7,2,0.72) !important; border-color: rgba(234,88,12,0.12) !important; }
+        ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
         <DesignEffects />
