@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { MapPin, Wallet, Sparkles, Users, Calendar, ChevronDown, ChevronUp, Clock, ExternalLink, Lightbulb, Share2, RefreshCw } from 'lucide-react'
+import { MapPin, Wallet, Lightbulb, ExternalLink, Share2, RefreshCw, ChevronDown, ChevronUp, Clock, Users } from 'lucide-react'
 import VoiceButton from '@/components/VoiceButton'
 import ShareCard from '@/components/ShareCard'
 import { useGate } from '@/lib/shared/useGate'
@@ -17,60 +17,71 @@ interface WeekendPlan {
   localTips: string[]; alternatives: string[]
 }
 
+const T = {
+  bg: '#09070f',
+  s1: '#13100a',
+  s2: '#1c1608',
+  border: 'rgba(255,255,255,0.07)',
+  border2: 'rgba(245,158,11,0.22)',
+  text: '#fef3c7',
+  muted: 'rgba(255,255,255,0.38)',
+  amber: '#f59e0b',
+  amber2: '#d97706',
+  orange: '#f97316',
+  green: '#4ade80',
+}
+
 const VIBES = [
-  { id: 'adventure', label: '🧗 Adventure', desc: 'Outdoors, active, thrilling' },
-  { id: 'foodie', label: '🍽️ Foodie', desc: 'Best restaurants & markets' },
-  { id: 'culture', label: '🎭 Culture', desc: 'Museums, art, history' },
-  { id: 'chill', label: '☕ Chill', desc: 'Cafes, parks, slow pace' },
-  { id: 'nightlife', label: '🎉 Nightlife', desc: 'Bars, clubs, live music' },
-  { id: 'family', label: '👨‍👩‍👧 Family', desc: 'Kids-friendly, safe bets' },
-  { id: 'romantic', label: '💑 Romantic', desc: 'Date ideas, scenic spots' },
-  { id: 'budget', label: '💸 Budget', desc: 'Free & cheap hidden gems' },
+  { id: 'adventure', label: '🧗 Adventure' },
+  { id: 'foodie', label: '🍽️ Foodie' },
+  { id: 'culture', label: '🎭 Culture' },
+  { id: 'chill', label: '☕ Chill' },
+  { id: 'nightlife', label: '🎉 Nightlife' },
+  { id: 'family', label: '👨‍👩‍👧 Family' },
+  { id: 'romantic', label: '💑 Romantic' },
+  { id: 'budget', label: '💸 Budget' },
 ]
 
-const TYPE_COLORS: Record<string, string> = {
-  outdoor:   'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-  indoor:    'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  food:      'bg-orange-500/20 text-orange-300 border-orange-500/30',
-  nightlife: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-  culture:   'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  sport:     'bg-red-500/20 text-red-300 border-red-500/30',
+const TYPE_COLORS: Record<string, { bg: string; color: string }> = {
+  outdoor:   { bg: 'rgba(74,222,128,0.12)', color: '#4ade80' },
+  indoor:    { bg: 'rgba(96,165,250,0.12)', color: '#60a5fa' },
+  food:      { bg: 'rgba(249,115,22,0.12)', color: '#f97316' },
+  nightlife: { bg: 'rgba(192,132,252,0.12)', color: '#c084fc' },
+  culture:   { bg: 'rgba(250,204,21,0.12)', color: '#facc15' },
+  sport:     { bg: 'rgba(248,113,113,0.12)', color: '#f87171' },
 }
 
 function ActivityCard({ act, index }: { act: Activity; index: number }) {
   const [open, setOpen] = useState(false)
-  const color = TYPE_COLORS[act.type] ?? 'bg-white/10 text-white/60 border-white/20'
+  const tc = TYPE_COLORS[act.type] ?? { bg: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)' }
   return (
-    <div className="reveal-3d glass-liquid rounded-2xl overflow-hidden hover:border-white/[0.15] transition-all animate-fadeIn" style={{ animationDelay: `${index * 60}ms` }}>
-      <div className="flex items-start gap-4 p-4 cursor-pointer" onClick={() => setOpen(v => !v)}>
-        <div className="flex-shrink-0 text-center">
-          <div className="text-xs text-amber-300/70 font-medium">{act.time}</div>
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2 flex-wrap">
-            <h4 className="font-semibold text-white text-sm">{act.title}</h4>
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${color}`}>{act.type}</span>
-              <span className="text-xs text-amber-300/60 font-medium">{act.cost}</span>
+    <div style={{ background: T.s1, border: `1px solid ${open ? T.border2 : T.border}`, borderRadius: 12, overflow: 'hidden', marginBottom: 8, transition: 'border-color 0.15s' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px', cursor: 'pointer' }} onClick={() => setOpen(v => !v)}>
+        <div style={{ fontSize: 11, color: T.amber, fontWeight: 700, minWidth: 36, paddingTop: 2, flexShrink: 0 }}>{act.time}</div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#fef3c7' }}>{act.title}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+              <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 100, background: tc.bg, color: tc.color, fontWeight: 600 }}>{act.type}</span>
+              <span style={{ fontSize: 11, color: T.amber, fontWeight: 700 }}>{act.cost}</span>
             </div>
           </div>
-          <p className="text-white/55 text-xs mt-1 leading-snug line-clamp-2">{act.description}</p>
+          <p style={{ fontSize: 11, color: T.muted, marginTop: 3, lineHeight: 1.4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: open ? 'unset' : 1, WebkitBoxOrient: 'vertical' }}>{act.description}</p>
         </div>
-        {open ? <ChevronUp size={14} className="text-white/30 flex-shrink-0 mt-1" /> : <ChevronDown size={14} className="text-white/30 flex-shrink-0 mt-1" />}
+        {open ? <ChevronUp size={13} color={T.muted} style={{ flexShrink: 0, marginTop: 4 }} /> : <ChevronDown size={13} color={T.muted} style={{ flexShrink: 0, marginTop: 4 }} />}
       </div>
       {open && (
-        <div className="px-4 pb-4 border-t border-white/[0.05] pt-3 space-y-2">
-          <p className="text-white/65 text-xs leading-relaxed">{act.description}</p>
+        <div style={{ padding: '0 14px 12px', borderTop: `1px solid rgba(255,255,255,0.04)` }}>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.62)', lineHeight: 1.55, marginBottom: act.tip ? 10 : 0 }}>{act.description}</p>
           {act.tip && (
-            <div className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2">
-              <Lightbulb size={12} className="text-amber-400 flex-shrink-0 mt-0.5" />
-              <p className="text-amber-200/80 text-xs">{act.tip}</p>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.18)', borderRadius: 8, padding: '8px 10px', marginBottom: act.bookingUrl ? 10 : 0 }}>
+              <Lightbulb size={11} color={T.amber} style={{ flexShrink: 0, marginTop: 1 }} />
+              <span style={{ fontSize: 11, color: 'rgba(254,243,199,0.75)' }}>{act.tip}</span>
             </div>
           )}
           {act.bookingUrl && (
-            <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.10] text-white/60 hover:text-white transition-colors">
-              <ExternalLink size={11} /> Book / View
+            <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, padding: '6px 10px', borderRadius: 7, background: 'rgba(255,255,255,0.05)', border: `1px solid ${T.border}`, color: T.muted, textDecoration: 'none', transition: 'color 0.15s' }}>
+              <ExternalLink size={10} /> Book / View
             </a>
           )}
         </div>
@@ -90,19 +101,6 @@ export default function WeekendAIPage() {
   const [plan, setPlan]       = useState<WeekendPlan | null>(null)
   const [error, setError]     = useState<string | null>(null)
   const [day, setDay]         = useState<'saturday' | 'sunday'>('saturday')
-  const [navScrolled, setNavScrolled] = useState(false)
-  const sentinelRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const sentinel = sentinelRef.current
-    if (!sentinel) return
-    const observer = new IntersectionObserver(
-      ([entry]) => setNavScrolled(!entry.isIntersecting),
-      { threshold: 0 }
-    )
-    observer.observe(sentinel)
-    return () => observer.disconnect()
-  }, [])
 
   async function generate(overrideCity?: string) {
     const c = overrideCity ?? city
@@ -130,97 +128,136 @@ export default function WeekendAIPage() {
         const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`, { headers: { 'Accept-Language': 'en' } })
         const d = await r.json()
         const c = d.address?.city ?? d.address?.town ?? d.address?.county ?? ''
-        if (c) { setCity(c) }
+        if (c) setCity(c)
       } catch {}
     })
   }
 
-  const QUICK_CITIES = ['London', 'Manchester', 'Edinburgh', 'Bristol', 'Birmingham', 'New York', 'Paris', 'Barcelona', 'Tokyo', 'Dubai']
+  const QUICK_CITIES = ['London', 'Manchester', 'Edinburgh', 'Bristol', 'New York', 'Paris', 'Barcelona', 'Tokyo', 'Dubai']
 
   return (
     <>
-    {showGate && (
-      <RegisterGate
-        freeUsed={gateCount}
-        freeLimit={3}
-        freeFeature="weekend plans"
-        lockedFeature="unlimited weekend plans"
-        accentColor="#f59e0b"
-        site="weekendai"
-        onSuccess={onRegistered}
-        onDismiss={dismissGate}
-      />
-    )}
-    <div className="min-h-screen relative bg-gradient-to-br from-amber-950 via-gray-950 to-emerald-950">
-      <div className="noise-overlay" aria-hidden="true" />
-      <div className="liquid-blob liquid-blob-1" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.18), transparent 70%)' }} aria-hidden="true" />
-      <div className="liquid-blob liquid-blob-2" style={{ background: 'radial-gradient(circle, rgba(249,115,22,0.13), transparent 70%)', animationDelay: '-8s' }} aria-hidden="true" />
-      <div className="liquid-blob liquid-blob-3" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.10), transparent 70%)', animationDelay: '-14s' }} aria-hidden="true" />
+      {showGate && (
+        <RegisterGate
+          freeUsed={gateCount}
+          freeLimit={3}
+          freeFeature="weekend plans"
+          lockedFeature="unlimited weekend plans"
+          accentColor={T.amber}
+          site="weekendai"
+          onSuccess={onRegistered}
+          onDismiss={dismissGate}
+        />
+      )}
+      <div style={{ background: T.bg, color: T.text, fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
+        <style>{`
+          *{box-sizing:border-box;margin:0;padding:0}
+          a{text-decoration:none}
+          .nav{position:sticky;top:0;z-index:50;background:rgba(9,7,15,0.9);backdrop-filter:blur(16px);border-bottom:1px solid ${T.border};padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between}
+          .logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;color:#fef3c7;letter-spacing:-0.3px}
+          .w{max-width:720px;margin:0 auto;padding:0 18px}
+          .hero{padding:28px 18px 0;max-width:720px;margin:0 auto}
+          h1{font-size:clamp(20px,4vw,28px);font-weight:900;letter-spacing:-0.5px;color:#fef3c7;margin-bottom:6px}
+          h1 span{background:linear-gradient(135deg,${T.amber},${T.orange});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+          .sub{font-size:13px;color:${T.muted};margin-bottom:20px}
+          .vibes{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+          .vibe-btn{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:${T.s1};color:rgba(255,255,255,0.55);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+          .vibe-btn.sel{border-color:rgba(245,158,11,0.55);background:rgba(245,158,11,0.1);color:${T.amber};box-shadow:0 0 12px rgba(245,158,11,0.15)}
+          .vibe-btn:hover:not(.sel){color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.15)}
+          .form-box{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:14px;margin-bottom:20px}
+          .city-row{display:flex;gap:8px;margin-bottom:10px}
+          .inp{flex:1;background:rgba(255,255,255,0.04);border:1px solid ${T.border};border-radius:9px;padding:9px 12px;color:#fef3c7;font-size:13px;outline:none;transition:border-color 0.15s;font-family:inherit}
+          .inp:focus{border-color:rgba(245,158,11,0.4)}
+          .inp::placeholder{color:rgba(255,255,255,0.2)}
+          .loc-btn{padding:9px 12px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s;display:flex;align-items:center}
+          .loc-btn:hover{color:${T.amber};border-color:rgba(245,158,11,0.3)}
+          .quick-cities{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+          .qc{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:600;background:rgba(255,255,255,0.04);border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .qc.sel,.qc:hover{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:${T.amber}}
+          .selects{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+          select.inp{appearance:none;cursor:pointer}
+          .gen-btn{width:100%;padding:13px;border-radius:11px;font-size:14px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,${T.amber},${T.orange});color:#000;transition:opacity 0.15s;letter-spacing:-0.2px}
+          .gen-btn:hover{opacity:0.9}
+          .gen-btn:disabled{opacity:0.4;cursor:not-allowed}
+          .err{font-size:11px;color:rgba(248,113,113,0.9);background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);border-radius:8px;padding:7px 10px;margin-bottom:10px}
+          .feat-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
+          .fp{padding:5px 10px;background:${T.s1};border:1px solid ${T.border};border-radius:7px;font-size:11px;color:${T.muted}}
+          .loading-box{text-align:center;padding:40px 20px}
+          .spin{width:36px;height:36px;border:3px solid rgba(245,158,11,0.15);border-top-color:${T.amber};border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px}
+          @keyframes spin{to{transform:rotate(360deg)}}
+          .plan-header{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+          .plan-emoji{font-size:28px}
+          .plan-title{font-size:17px;font-weight:900;color:#fef3c7;margin-bottom:3px}
+          .plan-meta{font-size:11px;color:${T.muted}}
+          .day-toggle{background:${T.s1};border:1px solid ${T.border};border-radius:11px;padding:4px;display:flex;gap:4px;margin-bottom:14px}
+          .day-btn{flex:1;padding:9px;border-radius:8px;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all 0.15s;background:transparent;color:${T.muted}}
+          .day-btn.sel{background:linear-gradient(135deg,${T.amber},${T.orange});color:#000;box-shadow:0 2px 10px rgba(245,158,11,0.2)}
+          .section-label{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:${T.amber};margin-bottom:10px;display:flex;align-items:center;gap:6px}
+          .info-card{background:${T.s1};border:1px solid ${T.border};border-radius:12px;padding:14px;margin-bottom:12px}
+          .budget-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px}
+          .budget-row:last-child{border-bottom:none}
+          .tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,0.62);margin-bottom:7px}
+          .actions-row{display:flex;gap:8px;margin-top:4px;margin-bottom:28px}
+          .act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:rgba(255,255,255,0.04);color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .act-btn:hover{color:#fff;border-color:rgba(255,255,255,0.15)}
+          @media(max-width:480px){
+            .selects{grid-template-columns:1fr}
+            .quick-cities{gap:4px}
+            h1{font-size:20px}
+          }
+        `}</style>
 
-      {/* Floating nav */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between transition-all duration-300 ${navScrolled ? 'nav-scrolled glass-liquid border-b border-white/[0.08]' : 'bg-transparent'}`}>
-        <div className="flex items-center gap-2.5">
-          <span className="text-2xl">☀️</span>
-          <span className="font-bold text-white text-lg">WeekendAI</span>
-        </div>
-        <span className="text-white/40 text-sm hidden sm:block">Plan your perfect weekend</span>
-      </nav>
+        {/* Nav */}
+        <nav className="nav">
+          <div className="logo">☀️ WeekendAI</div>
+          <span style={{ fontSize: 11, color: T.muted }}>Plan your perfect weekend</span>
+        </nav>
 
-      {/* Sentinel for nav scroll detection */}
-      <div ref={sentinelRef} className="absolute top-20 h-px w-full pointer-events-none" aria-hidden="true" />
+        {/* Hero + Form */}
+        <div className="hero">
+          <h1>What&apos;s your vibe this <span>weekend</span>?</h1>
+          <p className="sub">Pick a mood. AI builds your full 2-day plan in seconds.</p>
 
-      {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 relative z-10">
-        <div className="w-full max-w-2xl mx-auto text-center space-y-8">
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
-              What's your vibe this{' '}
-              <span className="text-iridescent">weekend</span>?
-            </h1>
-            <p className="text-white/55 text-lg max-w-lg mx-auto">
-              Tell us your mood. AI builds a full 2-day itinerary.
-            </p>
-          </div>
-
-          {/* Mood selector */}
-          <div className="flex flex-wrap justify-center gap-3">
+          {/* Vibe selector */}
+          <div className="vibes">
             {VIBES.map(v => (
-              <button key={v.id} onClick={() => setVibe(v.id)}
-                className={`pill-glass text-sm font-semibold transition-all duration-200 ${vibe === v.id ? 'border-amber-400/70 shadow-[0_0_16px_rgba(245,158,11,0.35)] text-amber-200' : 'text-white/70 hover:text-white'}`}>
+              <button key={v.id} className={`vibe-btn${vibe === v.id ? ' sel' : ''}`} onClick={() => setVibe(v.id)}>
                 {v.label}
               </button>
             ))}
           </div>
 
-          {/* City + budget row */}
-          <div className="glass-liquid rounded-2xl p-4 space-y-3">
-            <div className="flex gap-2">
-              <input type="text" value={city} onChange={e => setCity(e.target.value)} onKeyDown={e => e.key === 'Enter' && vibe && generate()}
+          {/* Form */}
+          <div className="form-box">
+            <div className="city-row">
+              <input
+                className="inp"
+                type="text"
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && vibe && generate()}
                 placeholder="City — e.g. London, Tokyo, Barcelona"
-                className="flex-1 bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/25 outline-none focus:border-amber-500/50 transition-colors" />
-              <button onClick={useMyLocation} title="Use my location"
-                className="px-3 py-3 rounded-xl bg-white/[0.06] border border-white/[0.10] text-white/50 hover:text-amber-300 hover:border-amber-500/30 transition-colors">
-                <MapPin size={16} />
+              />
+              <button className="loc-btn" onClick={useMyLocation} title="Use my location">
+                <MapPin size={15} />
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
+            <div className="quick-cities">
               {QUICK_CITIES.map(c => (
-                <button key={c} onClick={() => setCity(c)} className={`text-xs px-2.5 py-1 rounded-full border transition-all ${city === c ? 'bg-amber-500/20 border-amber-500/30 text-amber-300' : 'bg-white/[0.04] border-white/[0.08] text-white/40 hover:text-white/60'}`}>{c}</button>
+                <button key={c} className={`qc${city === c ? ' sel' : ''}`} onClick={() => setCity(c)}>{c}</button>
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <select value={budget} onChange={e => setBudget(e.target.value)}
-                className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-amber-500/50 transition-colors appearance-none">
+            <div className="selects">
+              <select className="inp" value={budget} onChange={e => setBudget(e.target.value)}>
                 <option value="">Any budget</option>
                 <option value="tight (under £30/person)">Tight — under £30</option>
                 <option value="moderate (£50-80/person)">Moderate — £50-80</option>
                 <option value="comfortable (£100-150/person)">Comfortable — £100-150</option>
                 <option value="splurge (£200+/person)">Splurge — £200+</option>
               </select>
-              <select value={people} onChange={e => setPeople(e.target.value)}
-                className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-amber-500/50 transition-colors appearance-none">
+              <select className="inp" value={people} onChange={e => setPeople(e.target.value)}>
                 <option value="solo">Solo</option>
                 <option value="2 adults">2 adults (couple)</option>
                 <option value="group of friends">Group of friends</option>
@@ -229,123 +266,112 @@ export default function WeekendAIPage() {
               </select>
             </div>
 
-            <input type="text" value={extras} onChange={e => setExtras(e.target.value)} onKeyDown={e => e.key === 'Enter' && generate()}
-              placeholder="Anything specific? e.g. dog-friendly, no museums, love street food"
-              className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-white text-sm placeholder:text-white/25 outline-none focus:border-amber-500/50 transition-colors" />
+            <input
+              className="inp"
+              type="text"
+              value={extras}
+              onChange={e => setExtras(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && generate()}
+              placeholder="Anything specific? dog-friendly, no museums, street food…"
+              style={{ marginBottom: 10, width: '100%', display: 'block' }}
+            />
 
-            {error && <p className="text-red-400 text-xs bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2">{error}</p>}
+            {error && <div className="err">{error}</div>}
 
-            <button onClick={() => generate()}
-              className="btn-liquid w-full py-4 rounded-2xl font-bold text-white text-base">
-              ✨ Plan my weekend
+            <button className="gen-btn" disabled={loading} onClick={() => generate()}>
+              {loading ? 'Planning…' : '✨ Plan my weekend'}
             </button>
           </div>
 
-          {/* Feature pills */}
-          <div className="flex flex-wrap justify-center gap-2">
-            {['📅 Full 2-day plan', '💰 Budget breakdown', '🗺️ Local hidden gems', '📲 Shareable card'].map(f => (
-              <span key={f} className="pill-glass text-xs text-white/60">{f}</span>
+          <div className="feat-pills">
+            {['📅 Full 2-day plan','💰 Budget breakdown','🗺️ Hidden gems','📲 Shareable card'].map(f => (
+              <span key={f} className="fp">{f}</span>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Loading */}
-      {loading && (
-        <section className="relative z-10 flex flex-col items-center justify-center py-24 px-6">
-          <div className="text-5xl mb-6 animate-pulse">🗺️</div>
-          <p className="text-white/70 text-xl font-semibold mb-2">Planning your weekend…</p>
-          <p className="text-white/35 text-sm">Finding hidden gems, checking local spots, crafting your itinerary</p>
-        </section>
-      )}
-
-      {/* Plan results */}
-      {plan && !loading && (
-        <section className="relative z-10 max-w-2xl mx-auto px-6 pb-24 space-y-6 animate-fadeIn">
-          {/* Plan header */}
-          <div className="glass-liquid rounded-2xl p-6 text-center">
-            <div className="text-4xl mb-2">🎉</div>
-            <h2 className="text-2xl font-bold text-white mb-1">{plan.title}</h2>
-            <p className="text-white/45 text-sm">{plan.city} · {plan.vibe} · {plan.weather}</p>
+        {/* Loading */}
+        {loading && (
+          <div className="loading-box">
+            <div className="spin" />
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, fontWeight: 700, marginBottom: 5 }}>Planning your weekend…</p>
+            <p style={{ color: T.muted, fontSize: 12 }}>Finding hidden gems, crafting your itinerary</p>
           </div>
+        )}
 
-          {/* Day toggle */}
-          <div className="glass-liquid rounded-2xl p-1.5 flex items-center gap-2">
-            <button onClick={() => setDay('saturday')} className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${day === 'saturday' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20' : 'text-white/50 hover:text-white'}`}>
-              Saturday
-            </button>
-            <button onClick={() => setDay('sunday')} className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${day === 'sunday' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20' : 'text-white/50 hover:text-white'}`}>
-              Sunday
-            </button>
-          </div>
+        {/* Plan results */}
+        {plan && !loading && (
+          <div className="w" style={{ paddingTop: 8, paddingBottom: 32 }}>
+            <div className="plan-header">
+              <div className="plan-emoji">🎉</div>
+              <div>
+                <div className="plan-title">{plan.title}</div>
+                <div className="plan-meta">{plan.city} · {plan.vibe} · {plan.weather}</div>
+              </div>
+            </div>
 
-          {/* Activities */}
-          <div className="space-y-3">
-            {(plan[day] ?? []).map((act, i) => <ActivityCard key={i} act={act} index={i} />)}
-          </div>
+            {/* Day toggle */}
+            <div className="day-toggle">
+              <button className={`day-btn${day === 'saturday' ? ' sel' : ''}`} onClick={() => setDay('saturday')}>Saturday</button>
+              <button className={`day-btn${day === 'sunday' ? ' sel' : ''}`} onClick={() => setDay('sunday')}>Sunday</button>
+            </div>
 
-          {/* Budget breakdown */}
-          {plan.budgetBreakdown?.length > 0 && (
-            <div className="glass-liquid rounded-2xl p-5">
-              <h3 className="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Wallet size={12} /> Estimated Budget</h3>
-              <div className="space-y-2">
+            {/* Activities */}
+            <div style={{ marginBottom: 14 }}>
+              {(plan[day] ?? []).map((act, i) => <ActivityCard key={i} act={act} index={i} />)}
+            </div>
+
+            {/* Budget */}
+            {plan.budgetBreakdown?.length > 0 && (
+              <div className="info-card">
+                <div className="section-label"><Wallet size={10} /> Estimated Budget</div>
                 {plan.budgetBreakdown.map((b, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm">
-                    <span className="text-white/60">{b.category}</span>
-                    <span className="text-white font-medium">{b.estimate}</span>
+                  <div key={i} className="budget-row">
+                    <span style={{ color: 'rgba(255,255,255,0.55)' }}>{b.category}</span>
+                    <span style={{ color: '#fef3c7', fontWeight: 700 }}>{b.estimate}</span>
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Local tips */}
-          {plan.localTips?.length > 0 && (
-            <div className="glass-liquid rounded-2xl p-5 border-amber-500/20">
-              <h3 className="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Lightbulb size={12} /> Local Insider Tips</h3>
-              <ul className="space-y-2">
-                {plan.localTips.map((t, i) => <li key={i} className="text-white/65 text-sm flex gap-2"><span className="text-amber-400 flex-shrink-0">→</span>{t}</li>)}
-              </ul>
-            </div>
-          )}
+            {/* Local tips */}
+            {plan.localTips?.length > 0 && (
+              <div className="info-card" style={{ borderColor: 'rgba(245,158,11,0.15)' }}>
+                <div className="section-label"><Lightbulb size={10} /> Local Insider Tips</div>
+                {plan.localTips.map((t, i) => (
+                  <div key={i} className="tip-item">
+                    <span style={{ color: T.amber, flexShrink: 0 }}>→</span> {t}
+                  </div>
+                ))}
+              </div>
+            )}
 
-          {/* Alternatives */}
-          {plan.alternatives?.length > 0 && (
-            <div className="glass-liquid rounded-2xl p-5">
-              <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">If This Doesn't Suit You</h3>
-              <ul className="space-y-1.5">
-                {plan.alternatives.map((a, i) => <li key={i} className="text-white/50 text-sm">• {a}</li>)}
-              </ul>
+            {/* Action buttons */}
+            <div className="actions-row">
+              <button className="act-btn" onClick={() => { setPlan(null); setError(null) }}>
+                <RefreshCw size={13} /> New plan
+              </button>
+              <ShareCard
+                title={plan.title}
+                subtitle={`${plan.city} · ${plan.vibe} · ${plan.weather}`}
+                highlights={[
+                  ...(plan.saturday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
+                  ...(plan.sunday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
+                ]}
+                accentColor={T.amber}
+                productName="WeekendAI"
+                productUrl="weekendai.vercel.app"
+              />
             </div>
-          )}
-
-          {/* Actions */}
-          <div className="flex gap-3">
-            <button onClick={() => { setPlan(null); setError(null) }}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium bg-white/[0.06] border border-white/[0.10] text-white/60 hover:text-white transition-colors">
-              <RefreshCw size={14} /> New plan
-            </button>
-            <ShareCard
-              title={plan.title}
-              subtitle={`${plan.city} · ${plan.vibe} · ${plan.weather}`}
-              highlights={[
-                ...(plan.saturday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
-                ...(plan.sunday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
-              ]}
-              accentColor="#f59e0b"
-              productName="WeekendAI"
-              productUrl="weekendai.vercel.app"
-            />
           </div>
-        </section>
-      )}
+        )}
 
-      <VoiceButton
-        onTranscript={(text) => setCity(text)}
-        color="#f59e0b"
-        position="bottom-right"
-      />
-    </div>
+        <VoiceButton
+          onTranscript={(text) => setCity(text)}
+          color={T.amber}
+          position="bottom-right"
+        />
+      </div>
     </>
   )
 }
