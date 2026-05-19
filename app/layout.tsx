@@ -4,6 +4,7 @@ import SharedNavbar from '@/components/SharedNavbar'
 import SharedFooter from '@/components/SharedFooter'
 import DesignEffects from '@/components/DesignEffects'
 import type { BrandConfig } from '@/components/SharedNavbar'
+import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 
 const brand: BrandConfig = {
   name: 'WeekendAI',
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SharedNavbar brand={brand} />
         <main className="flex-1 pt-16">{children}</main>
         <SharedFooter brand={brand} />
+        <FloatingChatWrapper />
       </body>
     </html>
   )
