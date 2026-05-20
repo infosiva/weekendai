@@ -107,6 +107,8 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
 }
 
 export default function WeekendAIPage() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
   const { count: gateCount, showGate, increment: gateIncrement, onRegistered, dismissGate } = useGate('weekendai', 3)
   const [city, setCity]       = useState('')
   const [budget, setBudget]   = useState('')

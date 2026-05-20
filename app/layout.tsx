@@ -11,7 +11,7 @@ const brand: BrandConfig = {
   tagline: 'AI plans your perfect weekend — real places, real costs, no tourist traps.',
   icon: '🗓️',
   color: '#f59e0b',
-  url: 'https://weekendai.vercel.app',
+  url: 'https://weekendai.app',
   navLinks: [
     { label: 'How it works', href: '#how' },
     { label: 'Cities', href: '#cities' },
@@ -20,20 +20,30 @@ const brand: BrandConfig = {
 }
 
 export const metadata: Metadata = {
-  title: 'WeekendAI — What should I do this weekend?',
-  description: 'Tell us your city, budget and vibe. AI plans your perfect weekend with real local events, restaurants and activities — not tourist traps.',
-  keywords: ['weekend planner', 'AI travel', 'things to do', 'city guide', 'weekend activities'],
+  metadataBase: new URL('https://weekendai.app'),
+  title: 'WeekendAI — What should I do this weekend? AI Weekend Planner',
+  description: 'Tell us your city, budget and vibe. AI plans your perfect weekend with real local events, restaurants and activities — no tourist traps. Hidden gems, accurate costs.',
+  keywords: ['weekend planner', 'AI travel planner', 'things to do this weekend', 'city guide', 'weekend activities', 'local events', 'hidden gems'],
+  authors: [{ name: 'WeekendAI' }],
   openGraph: {
     title: 'WeekendAI — What should I do this weekend?',
-    description: 'AI plans your perfect weekend with real local places and hidden gems.',
+    description: 'AI plans your perfect weekend with real local places, costs, and hidden gems.',
     type: 'website',
     locale: 'en_GB',
     siteName: 'WeekendAI',
+    url: 'https://weekendai.app',
+    images: [{
+      url: 'https://weekendai.app/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'WeekendAI - AI Weekend Planner'
+    }]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'WeekendAI — What should I do this weekend?',
     description: 'AI plans your perfect weekend with real local places and hidden gems.',
+    images: ['https://weekendai.app/og-image.png']
   },
   robots: { index: true, follow: true },
 }
@@ -50,19 +60,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {
                 "@type": "WebApplication",
                 "name": "WeekendAI",
-                "url": brand.url,
+                "url": "https://weekendai.app",
                 "description": "AI-powered weekend planner with real local places, costs and hidden gems.",
                 "applicationCategory": "TravelApplication",
                 "operatingSystem": "Web",
-                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
               },
               {
                 "@type": "WebSite",
                 "name": "WeekendAI",
-                "url": brand.url,
+                "url": "https://weekendai.app",
                 "potentialAction": {
                   "@type": "SearchAction",
-                  "target": `${brand.url}/?city={search_term_string}`,
+                  "target": "https://weekendai.app/?city={search_term_string}",
                   "query-input": "required name=search_term_string"
                 }
               }
