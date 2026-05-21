@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'WeekendAI',
     url: 'https://weekendai.app',
     images: [{
-      url: 'https://weekendai.app/og-image.png',
+      url: 'https://weekendai.app/og.png',
       width: 1200,
       height: 630,
       alt: 'WeekendAI - AI Weekend Planner'
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'WeekendAI — What should I do this weekend?',
     description: 'AI plans your perfect weekend with real local places and hidden gems.',
-    images: ['https://weekendai.app/og-image.png']
+    images: ['https://weekendai.app/og.png']
   },
   robots: { index: true, follow: true },
 }
