@@ -205,7 +205,7 @@ export default function FloatingChatWrapper() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && send()}
-                placeholder="What's your city and vibe?"
+                placeholder="City + vibe + budget — I'll plan your weekend"
                 style={{
                   flex: 1,
                   background: 'rgba(255,255,255,0.06)',

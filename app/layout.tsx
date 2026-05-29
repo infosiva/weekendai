@@ -10,7 +10,7 @@ import BackToTop from '@/components/BackToTop'
 
 const brand: BrandConfig = {
   name: 'WeekendAI',
-  tagline: 'AI plans your perfect weekend — real places, real costs, no tourist traps.',
+  tagline: 'Your weekend, planned by AI — hidden gems, real costs, zero tourist traps.',
   icon: '🗓️',
   color: '#f59e0b',
   url: 'https://weekendai.app',
