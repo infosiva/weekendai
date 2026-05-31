@@ -234,16 +234,41 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
         {/* Hero + Form */}
         <div className="hero">
-          <h1>{overrides.headline ?? <>What&apos;s your vibe this <span>weekend</span>?</>}</h1>
-          <p className="sub">{overrides.subheadline ?? 'Pick a mood. AI builds your full 2-day plan in seconds.'}</p>
+          <h1>{overrides.headline ?? <>Tell us who&apos;s coming and what you&apos;re into. Get your whole <span>weekend planned</span> in 10 seconds.</>}</h1>
+          <p className="sub">{overrides.subheadline ?? 'Pick your group and vibe. AI builds your full 2-day itinerary instantly.'}</p>
 
-          {/* Vibe selector */}
-          <div className="vibes">
-            {VIBES.map(v => (
-              <button key={v.id} className={`vibe-btn${vibe === v.id ? ' sel' : ''}`} onClick={() => setVibe(v.id)}>
-                {v.label}
-              </button>
-            ))}
+          {/* Row 1: Group selector */}
+          <div style={{ marginBottom: 10 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>Who&apos;s coming?</p>
+            <div className="vibes">
+              {[
+                { id: 'solo', label: '🙋 Solo' },
+                { id: '2 adults', label: '💑 Couple' },
+                { id: 'group of friends', label: '👥 Friends' },
+                { id: 'family with kids', label: '👨‍👩‍👧 Family' },
+              ].map(g => (
+                <button key={g.id} className={`vibe-btn${people === g.id ? ' sel' : ''}`} onClick={() => setPeople(g.id)}>
+                  {g.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2: Vibe selector */}
+          <div style={{ marginBottom: 16 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>What&apos;s the vibe?</p>
+            <div className="vibes">
+              {[
+                { id: 'chill', label: '☕ Chill' },
+                { id: 'adventure', label: '🧗 Active' },
+                { id: 'culture', label: '🎭 Cultural' },
+                { id: 'foodie', label: '🍽️ Foodie' },
+              ].map(v => (
+                <button key={v.id} className={`vibe-btn${vibe === v.id ? ' sel' : ''}`} onClick={() => setVibe(v.id)}>
+                  {v.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Form */}
@@ -276,13 +301,6 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                 <option value="comfortable (£100-150/person)">Comfortable — £100-150</option>
                 <option value="splurge (£200+/person)">Splurge — £200+</option>
               </select>
-              <select className="inp" value={people} onChange={e => setPeople(e.target.value)}>
-                <option value="solo">Solo</option>
-                <option value="2 adults">2 adults (couple)</option>
-                <option value="group of friends">Group of friends</option>
-                <option value="family with kids">Family with kids</option>
-                <option value="family with teens">Family with teens</option>
-              </select>
             </div>
 
             <input
@@ -308,6 +326,50 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
             ))}
           </div>
         </div>
+
+        {/* Social proof + example plans — shown only when no plan loaded */}
+        {!plan && !loading && (
+          <div className="w" style={{ paddingBottom: 32 }}>
+            {/* Stats strip */}
+            <div style={{ display: 'flex', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
+              {[
+                { n: '12k+', label: 'weekends planned' },
+                { n: '80+', label: 'cities covered' },
+                { n: '10s', label: 'avg plan time' },
+              ].map(s => (
+                <div key={s.label} style={{ flex: '1 1 80px', background: T.s1, border: `1px solid ${T.border}`, borderRadius: 10, padding: '10px 14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: T.amber }}>{s.n}</div>
+                  <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Example weekend cards */}
+            <div style={{ marginBottom: 8 }}>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '1.2px', textTransform: 'uppercase', color: T.amber, marginBottom: 10 }}>✨ Example weekends</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
+                {[
+                  { emoji: '🎭', city: 'London', vibe: 'Culture', preview: 'Tate Modern → Borough Market → West End show' },
+                  { emoji: '🍽️', city: 'Barcelona', vibe: 'Foodie', preview: 'La Boqueria → tapas crawl → sunset at Bunkers' },
+                  { emoji: '🏔️', city: 'Edinburgh', vibe: 'Adventure', preview: 'Arthur\'s Seat hike → Royal Mile → whisky tasting' },
+                  { emoji: '💑', city: 'Paris', vibe: 'Romantic', preview: 'Louvre → Seine walk → rooftop dinner, Montmartre' },
+                ].map(ex => (
+                  <button
+                    key={ex.city}
+                    onClick={() => { setCity(ex.city); setVibe(ex.vibe.toLowerCase()) }}
+                    style={{ background: T.s1, border: `1px solid ${T.border}`, borderRadius: 10, padding: '12px 14px', textAlign: 'left', cursor: 'pointer', transition: 'border-color 0.15s' }}
+                    onMouseOver={e => (e.currentTarget.style.borderColor = 'rgba(245,158,11,0.35)')}
+                    onMouseOut={e => (e.currentTarget.style.borderColor = T.border)}
+                  >
+                    <div style={{ fontSize: 20, marginBottom: 4 }}>{ex.emoji}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: '#fef3c7', marginBottom: 2 }}>{ex.city} · {ex.vibe}</div>
+                    <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>{ex.preview}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Loading */}
         {loading && (
@@ -335,9 +397,26 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
               <button className={`day-btn${day === 'sunday' ? ' sel' : ''}`} onClick={() => setDay('sunday')}>Sunday</button>
             </div>
 
-            {/* Activities */}
+            {/* Activities — grouped by Morning / Afternoon / Evening */}
             <div style={{ marginBottom: 14 }}>
-              {(plan[day] ?? []).map((act, i) => <ActivityCard key={i} act={act} index={i} />)}
+              {(['Morning', 'Afternoon', 'Evening'] as const).map(slot => {
+                const slotActivities = (plan[day] ?? []).filter(act => {
+                  const h = parseInt(act.time?.split(':')[0] ?? '12', 10)
+                  if (slot === 'Morning') return h < 12
+                  if (slot === 'Afternoon') return h >= 12 && h < 17
+                  return h >= 17
+                })
+                if (slotActivities.length === 0) return null
+                const slotIcon = slot === 'Morning' ? '🌅' : slot === 'Afternoon' ? '☀️' : '🌙'
+                return (
+                  <div key={slot} style={{ marginBottom: 16 }}>
+                    <div className="section-label" style={{ marginBottom: 8 }}>
+                      <span>{slotIcon}</span> {slot}
+                    </div>
+                    {slotActivities.map((act, i) => <ActivityCard key={i} act={act} index={i} />)}
+                  </div>
+                )
+              })}
             </div>
 
             {/* Budget */}
