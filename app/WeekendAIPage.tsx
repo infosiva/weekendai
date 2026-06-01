@@ -57,22 +57,15 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
   const [open, setOpen] = useState(false)
   const tc = TYPE_COLORS[act.type] ?? { bg: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)' }
   return (
-    <div style={{ background: T.s1, border: `1px solid ${open ? T.border2 : T.border}`, borderRadius: 12, overflow: 'hidden', marginBottom: 8, transition: 'border-color 0.15s' }}>
-      {/* Animated blob bg */}
-      <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }} aria-hidden>
-        <motion.div
-          style={{ position: 'absolute', top: '-15%', left: '-8%', width: 600, height: 600, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(249,115,22,0.18) 0%, transparent 70%)', filter: 'blur(80px)' }}
-          animate={{ x: [0, 40, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
-          transition={{ duration: 14, ease: 'easeInOut', repeat: Infinity }}
-        />
-        <motion.div
-          style={{ position: 'absolute', bottom: '-10%', right: '-6%', width: 500, height: 500, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(234,88,12,0.10) 0%, transparent 70%)', filter: 'blur(90px)' }}
-          animate={{ x: [0, -25, 0], y: [0, 20, 0], scale: [1, 1.06, 1] }}
-          transition={{ duration: 18, ease: 'easeInOut', repeat: Infinity, delay: 2 }}
-        />
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.06, duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+      style={{ background: T.s1, border: `1px solid ${open ? T.border2 : T.border}`, borderRadius: 12, overflow: 'hidden', marginBottom: 8, transition: 'border-color 0.15s', display: 'flex' }}
+    >
+      {/* Left accent stripe — type color */}
+      <div style={{ width: 3, flexShrink: 0, background: tc.color, opacity: 0.7, borderRadius: '0 0 0 0' }} />
+      <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px', cursor: 'pointer' }} onClick={() => setOpen(v => !v)}>
         <div style={{ fontSize: 11, color: T.amber, fontWeight: 700, minWidth: 36, paddingTop: 2, flexShrink: 0 }}>{act.time}</div>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -103,7 +96,8 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
           )}
         </div>
       )}
-    </div>
+      </div>
+    </motion.div>
   )
 }
 
@@ -385,11 +379,39 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
           <div className="w" style={{ paddingTop: 8, paddingBottom: 32 }}>
             <div className="plan-header">
               <div className="plan-emoji">🎉</div>
-              <div>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <div className="plan-title">{plan.title}</div>
                 <div className="plan-meta">{plan.city} · {plan.vibe} · {plan.weather}</div>
               </div>
             </div>
+
+            {/* Weekend summary strip */}
+            {(() => {
+              const allActs = [...(plan.saturday ?? []), ...(plan.sunday ?? [])]
+              const totalActs = allActs.length
+              const freeActs = allActs.filter(a => a.cost === 'Free' || a.cost === '£0').length
+              return (
+                <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+                  {[
+                    { icon: '📋', label: `${totalActs} activities` },
+                    { icon: '📅', label: '2-day plan' },
+                    freeActs > 0 ? { icon: '🆓', label: `${freeActs} free` } : null,
+                    { icon: '🌤', label: plan.weather },
+                  ].filter(Boolean).map((s) => s && (
+                    <div key={s.label} style={{
+                      display: 'flex', alignItems: 'center', gap: 5,
+                      fontSize: 10, fontWeight: 700,
+                      padding: '4px 10px', borderRadius: 99,
+                      background: 'rgba(245,158,11,0.08)',
+                      border: '1px solid rgba(245,158,11,0.18)',
+                      color: T.amber,
+                    }}>
+                      <span>{s.icon}</span> {s.label}
+                    </div>
+                  ))}
+                </div>
+              )
+            })()}
 
             {/* Day toggle */}
             <div className="day-toggle">
