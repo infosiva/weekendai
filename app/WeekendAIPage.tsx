@@ -324,20 +324,6 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
         {/* Social proof + example plans — shown only when no plan loaded */}
         {!plan && !loading && (
           <div className="w" style={{ paddingBottom: 32 }}>
-            {/* Stats strip */}
-            <div style={{ display: 'flex', gap: 12, marginBottom: 24, flexWrap: 'wrap' }}>
-              {[
-                { n: '12k+', label: 'weekends planned' },
-                { n: '80+', label: 'cities covered' },
-                { n: '10s', label: 'avg plan time' },
-              ].map(s => (
-                <div key={s.label} style={{ flex: '1 1 80px', background: T.s1, border: `1px solid ${T.border}`, borderRadius: 10, padding: '10px 14px', textAlign: 'center' }}>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: T.amber }}>{s.n}</div>
-                  <div style={{ fontSize: 10, color: T.muted, marginTop: 2 }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
-
             {/* Example weekend cards */}
             <div style={{ marginBottom: 8 }}>
               <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '1.2px', textTransform: 'uppercase', color: T.amber, marginBottom: 10 }}>✨ Example weekends</div>
