@@ -7,12 +7,13 @@ import DesignEffects from '@/components/DesignEffects'
 import type { BrandConfig } from '@/components/SharedNavbar'
 import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
+import FeedbackWidget from '@/components/FeedbackWidget'
 
 const brand: BrandConfig = {
   name: 'WeekendAI',
   tagline: 'Your weekend, planned by AI — hidden gems, real costs, zero tourist traps.',
   icon: '🗓️',
-  color: '#f59e0b',
+  color: '#ea580c',
   url: 'https://weekendai.app',
   navLinks: [
     { label: 'How it works', href: '#how' },
@@ -89,19 +90,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
             --theme-primary: #ea580c;
-            --theme-secondary: #f59e0b;
-            --theme-base: #0d0702;
-            --background: #0d0702;
-            --surface-1: #1c1004;
-            --surface-2: #2a1a07;
-            --foreground: #fff7ed;
-            --text-2: #fed7aa;
+            --theme-secondary: #fb923c;
+            --theme-base: #fffbf5;
+            --background: #fffbf5;
+            --surface-1: #fff5e9;
+            --surface-2: #ffece0;
+            --foreground: #1c1410;
+            --text-2: #6b5d52;
             --border-default: rgba(234,88,12,0.15);
             --border-strong: rgba(234,88,12,0.3);
           }
           body { font-family: 'Inter', system-ui, sans-serif !important; }
           h1, h2, h3 { font-family: 'Fraunces', serif !important; font-style: italic; }
-          .glass { background: rgba(13,7,2,0.72) !important; border-color: rgba(234,88,12,0.12) !important; }
+          .glass { background: rgba(255,251,245,0.80) !important; border-color: rgba(234,88,12,0.12) !important; }
         ` }} />
       </head>
       <body className="flex flex-col min-h-screen">
@@ -114,7 +115,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1 pt-16">{children}</main>
         <SharedFooter brand={brand} />
         <FloatingChatWrapper />
-        <BackToTop accentColor="#f59e0b" />
+        <FeedbackWidget siteName="WeekendAI" />
+        <BackToTop accentColor="#ea580c" />
         <Script defer data-site="weekendai.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
       </body>
     </html>
