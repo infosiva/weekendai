@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const ACCENT = '#7c3aed'
-const ACCENT_DARK = '#5b21b6'
-const ACCENT_RGB = '124,58,237'
+const ACCENT = '#ea580c'
+const ACCENT_DARK = '#c2410c'
+const ACCENT_RGB = '234,88,12'
 const NAME = 'WeekendAI'
 const EMOJI = '🌅'
 const GREETING = "Hi! Tell me your city and what you're into — I'll plan your weekend 🎉"
-const BG = 'rgba(6,6,16,0.97)'
+const BG = 'rgba(255,251,245,0.97)'
 const BOTTOM_OFFSET = 84
 
 export default function FloatingChatWrapper() {
@@ -56,7 +56,7 @@ export default function FloatingChatWrapper() {
         borderRadius: '16px 16px 0 0',
         background: BG,
         border: `1px solid rgba(${ACCENT_RGB},0.25)`,
-        boxShadow: '0 -8px 40px rgba(0,0,0,0.8)',
+        boxShadow: '0 -8px 40px rgba(28,20,16,0.18)',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -71,7 +71,7 @@ export default function FloatingChatWrapper() {
         borderRadius: 16,
         background: BG,
         border: `1px solid rgba(${ACCENT_RGB},0.25)`,
-        boxShadow: '0 8px 40px rgba(0,0,0,0.7)',
+        boxShadow: '0 8px 40px rgba(28,20,16,0.16)',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -126,14 +126,14 @@ export default function FloatingChatWrapper() {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontSize: 18 }}>{EMOJI}</span>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#eef' }}>{NAME} AI</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#1c1410' }}>{NAME} AI</span>
                 <span
                   style={{
                     fontSize: 10,
                     fontWeight: 600,
                     padding: '2px 7px',
                     borderRadius: 20,
-                    background: `rgba(${ACCENT_RGB},0.18)`,
+                    background: `rgba(${ACCENT_RGB},0.12)`,
                     color: ACCENT,
                     border: `1px solid rgba(${ACCENT_RGB},0.3)`,
                   }}
@@ -146,7 +146,7 @@ export default function FloatingChatWrapper() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'rgba(255,255,255,0.3)',
+                  color: 'rgba(28,20,16,0.35)',
                   fontSize: 18,
                   cursor: 'pointer',
                 }}
@@ -174,13 +174,13 @@ export default function FloatingChatWrapper() {
                     alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
                     background:
                       m.role === 'user'
-                        ? `rgba(${ACCENT_RGB},0.35)`
-                        : 'rgba(255,255,255,0.07)',
+                        ? `rgba(${ACCENT_RGB},0.16)`
+                        : 'rgba(28,20,16,0.05)',
                     padding: '8px 12px',
                     borderRadius:
                       m.role === 'user' ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
                     fontSize: 13,
-                    color: 'rgba(240,240,255,0.9)',
+                    color: '#1c1410',
                     maxWidth: '85%',
                     lineHeight: 1.5,
                   }}
@@ -208,12 +208,12 @@ export default function FloatingChatWrapper() {
                 placeholder="City + vibe + budget — I'll plan your weekend"
                 style={{
                   flex: 1,
-                  background: 'rgba(255,255,255,0.06)',
+                  background: '#ffffff',
                   border: `1px solid rgba(${ACCENT_RGB},0.25)`,
                   borderRadius: 10,
                   padding: '8px 12px',
                   fontSize: isMobile ? 16 : 13,
-                  color: '#eef',
+                  color: '#1c1410',
                   outline: 'none',
                 }}
               />

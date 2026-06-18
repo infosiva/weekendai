@@ -98,7 +98,7 @@ export default function VoiceButton({ onTranscript, lang = 'en-GB', color = '#f5
         {icons[state]}
       </button>
       {/* Tooltip */}
-      <div className="absolute bottom-full right-0 mb-2 px-2.5 py-1.5 bg-[#1a1830] text-white/80 text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-white/[0.08]">
+      <div className="absolute bottom-full right-0 mb-2 px-2.5 py-1.5 bg-[#fffbf5] text-[#1c1410]/75 text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-black/[0.10] shadow-sm">
         {tooltip}
       </div>
     </div>

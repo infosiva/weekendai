@@ -33,7 +33,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
         style={{ '--accent': brand.color } as React.CSSProperties}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out
           ${scrolled
-            ? 'bg-[#030305]/80 backdrop-blur-2xl border-b border-white/[0.05]'
+            ? 'bg-[#fffbf5]/80 backdrop-blur-2xl border-b border-black/[0.05]'
             : 'bg-transparent'
           }`}
       >
@@ -46,7 +46,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
             >
               {brand.icon}
             </span>
-            <span className="font-semibold text-white/90 text-sm tracking-tight">
+            <span className="font-semibold text-[#1c1410]/90 text-sm tracking-tight">
               {brand.name}
             </span>
           </Link>
@@ -60,7 +60,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
                   href={l.href}
                   target={l.external ? '_blank' : undefined}
                   rel={l.external ? 'noopener noreferrer' : undefined}
-                  className="px-3 py-1.5 text-[13px] text-white/45 hover:text-white/90 rounded-md hover:bg-white/[0.04] transition-all duration-150"
+                  className="px-3 py-1.5 text-[13px] text-[#1c1410]/45 hover:text-[#1c1410]/90 rounded-md hover:bg-black/[0.04] transition-all duration-150"
                 >
                   {l.label}
                 </Link>
@@ -86,7 +86,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(v => !v)}
-            className="md:hidden flex flex-col gap-1.5 p-2 rounded-md text-white/50 hover:text-white/80 transition-colors"
+            className="md:hidden flex flex-col gap-1.5 p-2 rounded-md text-[#1c1410]/50 hover:text-[#1c1410]/80 transition-colors"
             aria-label={open ? 'Close menu' : 'Open menu'}
           >
             <span className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${open ? 'translate-y-[7px] rotate-45' : ''}`} />
@@ -107,14 +107,14 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
         />
         {/* Drawer */}
         <div
-          className={`absolute top-0 left-0 right-0 bg-[#030305]/98 backdrop-blur-2xl border-b border-white/[0.06] transition-all duration-300 ease-out ${open ? 'translate-y-0' : '-translate-y-full'}`}
+          className={`absolute top-0 left-0 right-0 bg-[#fffbf5]/98 backdrop-blur-2xl border-b border-black/[0.06] transition-all duration-300 ease-out ${open ? 'translate-y-0' : '-translate-y-full'}`}
         >
-          <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-white/[0.05]">
+          <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-black/[0.05]">
             <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
               <span className="text-lg">{brand.icon}</span>
-              <span className="font-semibold text-white/90 text-sm">{brand.name}</span>
+              <span className="font-semibold text-[#1c1410]/90 text-sm">{brand.name}</span>
             </Link>
-            <button onClick={() => setOpen(false)} className="p-1.5 text-white/40 hover:text-white/80 transition-colors">
+            <button onClick={() => setOpen(false)} className="p-1.5 text-[#1c1410]/40 hover:text-[#1c1410]/80 transition-colors">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
           </div>
@@ -124,12 +124,12 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="px-2 py-2.5 text-sm text-white/60 hover:text-white rounded-lg hover:bg-white/[0.04] transition-all"
+                className="px-2 py-2.5 text-sm text-[#1c1410]/60 hover:text-[#1c1410] rounded-lg hover:bg-black/[0.04] transition-all"
               >
                 {l.label}
               </Link>
             ))}
-            <div className="h-px bg-white/[0.05] my-2" />
+            <div className="h-px bg-black/[0.05] my-2" />
             <Link
               href={cta.href}
               onClick={() => setOpen(false)}

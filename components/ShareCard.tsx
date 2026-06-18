@@ -61,33 +61,33 @@ export default function ShareCard({
       {/* Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#0f0e1a] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl animate-fadeUp">
+          <div className="w-full max-w-md bg-[#fffbf5] border border-black/[0.08] rounded-2xl overflow-hidden shadow-2xl animate-fadeUp">
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-black/[0.06]">
               <div className="flex items-center gap-2.5">
                 <Share2 size={16} style={{ color: accentColor }} />
-                <span className="font-semibold text-white text-sm">Share your plan</span>
+                <span className="font-semibold text-[#1c1410] text-sm">Share your plan</span>
               </div>
-              <button onClick={() => setOpen(false)} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.06] transition-all">
+              <button onClick={() => setOpen(false)} className="p-1.5 rounded-lg text-[#1c1410]/40 hover:text-[#1c1410] hover:bg-black/[0.05] transition-all">
                 <X size={16} />
               </button>
             </div>
 
             {/* Preview card */}
-            <div className="mx-5 mt-4 rounded-xl overflow-hidden border border-white/[0.08]">
+            <div className="mx-5 mt-4 rounded-xl overflow-hidden border border-black/[0.07]">
               <div className="px-4 py-3" style={{ background: `${accentColor}18` }}>
                 <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: accentColor }}>{productName}</div>
-                <div className="font-bold text-white text-sm leading-snug">{title}</div>
-                <div className="text-white/50 text-xs mt-0.5">{subtitle}</div>
+                <div className="font-bold text-[#1c1410] text-sm leading-snug">{title}</div>
+                <div className="text-[#1c1410]/50 text-xs mt-0.5">{subtitle}</div>
               </div>
-              <div className="bg-white/[0.03] px-4 py-3 space-y-1.5">
+              <div className="bg-black/[0.02] px-4 py-3 space-y-1.5">
                 {highlights.slice(0, 4).map((h, i) => (
-                  <div key={i} className="flex gap-2 text-xs text-white/70">
+                  <div key={i} className="flex gap-2 text-xs text-[#1c1410]/65">
                     <span style={{ color: accentColor }} className="flex-shrink-0">✓</span>
                     <span className="line-clamp-1">{h}</span>
                   </div>
                 ))}
-                <div className="text-xs text-white/30 pt-1 border-t border-white/[0.05] mt-2">
+                <div className="text-xs text-[#1c1410]/35 pt-1 border-t border-black/[0.05] mt-2">
                   Try free → {productUrl}
                 </div>
               </div>
@@ -99,27 +99,27 @@ export default function ShareCard({
                 href={twitterUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#1a1a2e] border border-white/[0.06] hover:border-[#1d9bf0]/40 hover:bg-[#1d9bf0]/10 transition-all text-[#1d9bf0]">
+                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#f5f5f8] border border-black/[0.06] hover:border-[#1d9bf0]/40 hover:bg-[#1d9bf0]/10 transition-all text-[#1d9bf0]">
                 <TwitterIcon />
-                <span className="text-xs text-white/60">Twitter / X</span>
+                <span className="text-xs text-[#1c1410]/55">Twitter / X</span>
               </a>
 
               <a
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#1a1a2e] border border-white/[0.06] hover:border-[#0a66c2]/40 hover:bg-[#0a66c2]/10 transition-all text-[#0a66c2]">
+                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#f5f5f8] border border-black/[0.06] hover:border-[#0a66c2]/40 hover:bg-[#0a66c2]/10 transition-all text-[#0a66c2]">
                 <LinkedinIcon />
-                <span className="text-xs text-white/60">LinkedIn</span>
+                <span className="text-xs text-[#1c1410]/55">LinkedIn</span>
               </a>
 
               <button
                 onClick={copyLink}
-                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#1a1a2e] border border-white/[0.06] hover:border-white/20 transition-all">
+                className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-[#f5f5f8] border border-black/[0.06] hover:border-black/20 transition-all">
                 {copied
-                  ? <Check size={18} className="text-emerald-400" />
-                  : <Link size={18} className="text-white/50" />}
-                <span className="text-xs text-white/60">{copied ? 'Copied!' : 'Copy text'}</span>
+                  ? <Check size={18} className="text-emerald-600" />
+                  : <Link size={18} className="text-[#1c1410]/45" />}
+                <span className="text-xs text-[#1c1410]/55">{copied ? 'Copied!' : 'Copy text'}</span>
               </button>
             </div>
 
@@ -129,7 +129,7 @@ export default function ShareCard({
                 readOnly
                 rows={5}
                 value={shareText}
-                className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white/50 resize-none font-mono leading-relaxed"
+                className="w-full bg-black/[0.02] border border-black/[0.06] rounded-xl px-3 py-2.5 text-xs text-[#1c1410]/50 resize-none font-mono leading-relaxed"
               />
             </div>
           </div>

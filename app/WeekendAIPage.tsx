@@ -20,17 +20,17 @@ interface WeekendPlan {
 }
 
 const T = {
-  bg: '#09070f',
-  s1: '#13100a',
-  s2: '#1c1608',
-  border: 'rgba(255,255,255,0.07)',
-  border2: 'rgba(245,158,11,0.22)',
-  text: '#fef3c7',
-  muted: 'rgba(255,255,255,0.38)',
-  amber: '#f59e0b',
-  amber2: '#d97706',
-  orange: '#f97316',
-  green: '#4ade80',
+  bg: '#fffbf5',
+  s1: '#fff5e9',
+  s2: '#ffece0',
+  border: 'rgba(28,20,16,0.08)',
+  border2: 'rgba(234,88,12,0.25)',
+  text: '#1c1410',
+  muted: 'rgba(28,20,16,0.45)',
+  amber: '#ea580c',
+  amber2: '#c2410c',
+  orange: '#fb923c',
+  green: '#16a34a',
 }
 
 const VIBES = [
@@ -45,17 +45,17 @@ const VIBES = [
 ]
 
 const TYPE_COLORS: Record<string, { bg: string; color: string }> = {
-  outdoor:   { bg: 'rgba(74,222,128,0.12)', color: '#4ade80' },
-  indoor:    { bg: 'rgba(96,165,250,0.12)', color: '#60a5fa' },
-  food:      { bg: 'rgba(249,115,22,0.12)', color: '#f97316' },
-  nightlife: { bg: 'rgba(192,132,252,0.12)', color: '#c084fc' },
-  culture:   { bg: 'rgba(250,204,21,0.12)', color: '#facc15' },
-  sport:     { bg: 'rgba(248,113,113,0.12)', color: '#f87171' },
+  outdoor:   { bg: 'rgba(22,163,74,0.10)', color: '#15803d' },
+  indoor:    { bg: 'rgba(37,99,235,0.10)', color: '#1d4ed8' },
+  food:      { bg: 'rgba(234,88,12,0.10)', color: '#c2410c' },
+  nightlife: { bg: 'rgba(168,85,247,0.10)', color: '#9333ea' },
+  culture:   { bg: 'rgba(217,119,6,0.10)', color: '#b45309' },
+  sport:     { bg: 'rgba(220,38,38,0.10)', color: '#dc2626' },
 }
 
 function ActivityCard({ act, index }: { act: Activity; index: number }) {
   const [open, setOpen] = useState(false)
-  const tc = TYPE_COLORS[act.type] ?? { bg: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)' }
+  const tc = TYPE_COLORS[act.type] ?? { bg: 'rgba(28,20,16,0.06)', color: 'rgba(28,20,16,0.5)' }
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -70,7 +70,7 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
         <div style={{ fontSize: 11, color: T.amber, fontWeight: 700, minWidth: 36, paddingTop: 2, flexShrink: 0 }}>{act.time}</div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: '#fef3c7' }}>{act.title}</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: T.text }}>{act.title}</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
               <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 100, background: tc.bg, color: tc.color, fontWeight: 600 }}>{act.type}</span>
               <span style={{ fontSize: 11, color: T.amber, fontWeight: 700 }}>{act.cost}</span>
@@ -81,16 +81,16 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
         {open ? <ChevronUp size={13} color={T.muted} style={{ flexShrink: 0, marginTop: 4 }} /> : <ChevronDown size={13} color={T.muted} style={{ flexShrink: 0, marginTop: 4 }} />}
       </div>
       {open && (
-        <div style={{ padding: '0 14px 12px', borderTop: `1px solid rgba(255,255,255,0.04)` }}>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.62)', lineHeight: 1.55, marginBottom: act.tip ? 10 : 0 }}>{act.description}</p>
+        <div style={{ padding: '0 14px 12px', borderTop: `1px solid rgba(28,20,16,0.05)` }}>
+          <p style={{ fontSize: 12, color: 'rgba(28,20,16,0.65)', lineHeight: 1.55, marginBottom: act.tip ? 10 : 0 }}>{act.description}</p>
           {act.tip && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.18)', borderRadius: 8, padding: '8px 10px', marginBottom: act.bookingUrl ? 10 : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(234,88,12,0.07)', border: '1px solid rgba(234,88,12,0.18)', borderRadius: 8, padding: '8px 10px', marginBottom: act.bookingUrl ? 10 : 0 }}>
               <Lightbulb size={11} color={T.amber} style={{ flexShrink: 0, marginTop: 1 }} />
-              <span style={{ fontSize: 11, color: 'rgba(254,243,199,0.75)' }}>{act.tip}</span>
+              <span style={{ fontSize: 11, color: 'rgba(28,20,16,0.7)' }}>{act.tip}</span>
             </div>
           )}
           {act.bookingUrl && (
-            <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, padding: '6px 10px', borderRadius: 7, background: 'rgba(255,255,255,0.05)', border: `1px solid ${T.border}`, color: T.muted, textDecoration: 'none', transition: 'color 0.15s' }}>
+            <a href={act.bookingUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, padding: '6px 10px', borderRadius: 7, background: 'rgba(28,20,16,0.04)', border: `1px solid ${T.border}`, color: T.muted, textDecoration: 'none', transition: 'color 0.15s' }}>
               <ExternalLink size={10} /> Book / View
             </a>
           )}
@@ -166,53 +166,53 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
         <style>{`
           *{box-sizing:border-box;margin:0;padding:0}
           a{text-decoration:none}
-          .nav{position:sticky;top:0;z-index:50;background:rgba(9,7,15,0.9);backdrop-filter:blur(16px);border-bottom:1px solid ${T.border};padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between}
-          .logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;color:#fef3c7;letter-spacing:-0.3px}
+          .nav{position:sticky;top:0;z-index:50;background:rgba(255,251,245,0.9);backdrop-filter:blur(16px);border-bottom:1px solid ${T.border};padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between}
+          .logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;color:${T.text};letter-spacing:-0.3px}
           .w{max-width:720px;margin:0 auto;padding:0 18px}
           .hero{padding:28px 18px 0;max-width:720px;margin:0 auto}
-          h1{font-size:clamp(20px,4vw,28px);font-weight:900;letter-spacing:-0.5px;color:#fef3c7;margin-bottom:6px}
-          h1 span{background:linear-gradient(135deg,${T.amber},${T.orange});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+          h1{font-size:clamp(20px,4vw,28px);font-weight:900;letter-spacing:-0.5px;color:${T.text};margin-bottom:6px}
+          h1 span{background:linear-gradient(135deg,${T.amber},${T.amber2});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
           .sub{font-size:13px;color:${T.muted};margin-bottom:20px}
           .vibes{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
-          .vibe-btn{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:${T.s1};color:rgba(255,255,255,0.55);cursor:pointer;transition:all 0.15s;white-space:nowrap}
-          .vibe-btn.sel{border-color:rgba(245,158,11,0.55);background:rgba(245,158,11,0.1);color:${T.amber};box-shadow:0 0 12px rgba(245,158,11,0.15)}
-          .vibe-btn:hover:not(.sel){color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.15)}
+          .vibe-btn{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:${T.s1};color:rgba(28,20,16,0.55);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+          .vibe-btn.sel{border-color:rgba(234,88,12,0.45);background:rgba(234,88,12,0.10);color:${T.amber};box-shadow:0 0 12px rgba(234,88,12,0.12)}
+          .vibe-btn:hover:not(.sel){color:rgba(28,20,16,0.85);border-color:rgba(28,20,16,0.18)}
           .form-box{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:14px;margin-bottom:20px}
           .city-row{display:flex;gap:8px;margin-bottom:10px}
-          .inp{flex:1;background:rgba(255,255,255,0.04);border:1px solid ${T.border};border-radius:9px;padding:9px 12px;color:#fef3c7;font-size:13px;outline:none;transition:border-color 0.15s;font-family:inherit}
-          .inp:focus{border-color:rgba(245,158,11,0.4)}
-          .inp::placeholder{color:rgba(255,255,255,0.2)}
-          .loc-btn{padding:9px 12px;border-radius:9px;background:rgba(255,255,255,0.05);border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s;display:flex;align-items:center}
-          .loc-btn:hover{color:${T.amber};border-color:rgba(245,158,11,0.3)}
+          .inp{flex:1;background:#ffffff;border:1px solid ${T.border};border-radius:9px;padding:9px 12px;color:${T.text};font-size:13px;outline:none;transition:border-color 0.15s;font-family:inherit}
+          .inp:focus{border-color:rgba(234,88,12,0.45)}
+          .inp::placeholder{color:rgba(28,20,16,0.32)}
+          .loc-btn{padding:9px 12px;border-radius:9px;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s;display:flex;align-items:center}
+          .loc-btn:hover{color:${T.amber};border-color:rgba(234,88,12,0.3)}
           .quick-cities{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-          .qc{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:600;background:rgba(255,255,255,0.04);border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s}
-          .qc.sel,.qc:hover{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:${T.amber}}
+          .qc{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:600;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .qc.sel,.qc:hover{background:rgba(234,88,12,0.10);border-color:rgba(234,88,12,0.3);color:${T.amber}}
           .selects{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
           select.inp{appearance:none;cursor:pointer}
-          .gen-btn{width:100%;padding:13px;border-radius:11px;font-size:14px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,${T.amber},${T.orange});color:#000;transition:opacity 0.15s;letter-spacing:-0.2px}
+          .gen-btn{width:100%;padding:13px;border-radius:11px;font-size:14px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,${T.amber},${T.amber2});color:#fff;transition:opacity 0.15s;letter-spacing:-0.2px}
           .gen-btn:hover{opacity:0.9}
           .gen-btn:disabled{opacity:0.4;cursor:not-allowed}
-          .err{font-size:11px;color:rgba(248,113,113,0.9);background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);border-radius:8px;padding:7px 10px;margin-bottom:10px}
+          .err{font-size:11px;color:#b91c1c;background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.18);border-radius:8px;padding:7px 10px;margin-bottom:10px}
           .feat-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
           .fp{padding:5px 10px;background:${T.s1};border:1px solid ${T.border};border-radius:7px;font-size:11px;color:${T.muted}}
           .loading-box{text-align:center;padding:40px 20px}
-          .spin{width:36px;height:36px;border:3px solid rgba(245,158,11,0.15);border-top-color:${T.amber};border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px}
+          .spin{width:36px;height:36px;border:3px solid rgba(234,88,12,0.15);border-top-color:${T.amber};border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px}
           @keyframes spin{to{transform:rotate(360deg)}}
           .plan-header{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
           .plan-emoji{font-size:28px}
-          .plan-title{font-size:17px;font-weight:900;color:#fef3c7;margin-bottom:3px}
+          .plan-title{font-size:17px;font-weight:900;color:${T.text};margin-bottom:3px}
           .plan-meta{font-size:11px;color:${T.muted}}
           .day-toggle{background:${T.s1};border:1px solid ${T.border};border-radius:11px;padding:4px;display:flex;gap:4px;margin-bottom:14px}
           .day-btn{flex:1;padding:9px;border-radius:8px;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all 0.15s;background:transparent;color:${T.muted}}
-          .day-btn.sel{background:linear-gradient(135deg,${T.amber},${T.orange});color:#000;box-shadow:0 2px 10px rgba(245,158,11,0.2)}
+          .day-btn.sel{background:linear-gradient(135deg,${T.amber},${T.amber2});color:#fff;box-shadow:0 2px 10px rgba(234,88,12,0.2)}
           .section-label{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:${T.amber};margin-bottom:10px;display:flex;align-items:center;gap:6px}
           .info-card{background:${T.s1};border:1px solid ${T.border};border-radius:12px;padding:14px;margin-bottom:12px}
-          .budget-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px}
+          .budget-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(28,20,16,0.05);font-size:12px}
           .budget-row:last-child{border-bottom:none}
-          .tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,0.62);margin-bottom:7px}
+          .tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(28,20,16,0.65);margin-bottom:7px}
           .actions-row{display:flex;gap:8px;margin-top:4px;margin-bottom:28px}
-          .act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:rgba(255,255,255,0.04);color:${T.muted};cursor:pointer;transition:all 0.15s}
-          .act-btn:hover{color:#fff;border-color:rgba(255,255,255,0.15)}
+          .act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:#ffffff;color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .act-btn:hover{color:${T.text};border-color:rgba(28,20,16,0.18)}
           @media(max-width:480px){
             .selects{grid-template-columns:1fr}
             .quick-cities{gap:4px}
@@ -233,7 +233,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
           {/* Row 1: Group selector */}
           <div style={{ marginBottom: 10 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>Who&apos;s coming?</p>
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(28,20,16,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>Who&apos;s coming?</p>
             <div className="vibes">
               {[
                 { id: 'solo', label: '🙋 Solo' },
@@ -250,7 +250,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
           {/* Row 2: Vibe selector */}
           <div style={{ marginBottom: 16 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>What&apos;s the vibe?</p>
+            <p style={{ fontSize: 10, fontWeight: 700, color: 'rgba(28,20,16,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 7 }}>What&apos;s the vibe?</p>
             <div className="vibes">
               {[
                 { id: 'chill', label: '☕ Chill' },
@@ -338,11 +338,11 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                     key={ex.city}
                     onClick={() => { setCity(ex.city); setVibe(ex.vibe.toLowerCase()) }}
                     style={{ background: T.s1, border: `1px solid ${T.border}`, borderRadius: 10, padding: '12px 14px', textAlign: 'left', cursor: 'pointer', transition: 'border-color 0.15s' }}
-                    onMouseOver={e => (e.currentTarget.style.borderColor = 'rgba(245,158,11,0.35)')}
+                    onMouseOver={e => (e.currentTarget.style.borderColor = 'rgba(234,88,12,0.35)')}
                     onMouseOut={e => (e.currentTarget.style.borderColor = T.border)}
                   >
                     <div style={{ fontSize: 20, marginBottom: 4 }}>{ex.emoji}</div>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: '#fef3c7', marginBottom: 2 }}>{ex.city} · {ex.vibe}</div>
+                    <div style={{ fontSize: 12, fontWeight: 800, color: T.text, marginBottom: 2 }}>{ex.city} · {ex.vibe}</div>
                     <div style={{ fontSize: 11, color: T.muted, lineHeight: 1.4 }}>{ex.preview}</div>
                   </button>
                 ))}
@@ -355,7 +355,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
         {loading && (
           <div className="loading-box">
             <div className="spin" />
-            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, fontWeight: 700, marginBottom: 5 }}>Planning your weekend…</p>
+            <p style={{ color: 'rgba(28,20,16,0.65)', fontSize: 14, fontWeight: 700, marginBottom: 5 }}>Planning your weekend…</p>
             <p style={{ color: T.muted, fontSize: 12 }}>Finding hidden gems, crafting your itinerary</p>
           </div>
         )}
@@ -388,8 +388,8 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                       display: 'flex', alignItems: 'center', gap: 5,
                       fontSize: 10, fontWeight: 700,
                       padding: '4px 10px', borderRadius: 99,
-                      background: 'rgba(245,158,11,0.08)',
-                      border: '1px solid rgba(245,158,11,0.18)',
+                      background: 'rgba(234,88,12,0.08)',
+                      border: '1px solid rgba(234,88,12,0.18)',
                       color: T.amber,
                     }}>
                       <span>{s.icon}</span> {s.label}
@@ -433,8 +433,8 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                 <div className="section-label"><Wallet size={10} /> Estimated Budget</div>
                 {plan.budgetBreakdown.map((b, i) => (
                   <div key={i} className="budget-row">
-                    <span style={{ color: 'rgba(255,255,255,0.55)' }}>{b.category}</span>
-                    <span style={{ color: '#fef3c7', fontWeight: 700 }}>{b.estimate}</span>
+                    <span style={{ color: 'rgba(28,20,16,0.6)' }}>{b.category}</span>
+                    <span style={{ color: T.text, fontWeight: 700 }}>{b.estimate}</span>
                   </div>
                 ))}
               </div>
@@ -442,7 +442,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
             {/* Local tips */}
             {plan.localTips?.length > 0 && (
-              <div className="info-card" style={{ borderColor: 'rgba(245,158,11,0.15)' }}>
+              <div className="info-card" style={{ borderColor: 'rgba(234,88,12,0.18)' }}>
                 <div className="section-label"><Lightbulb size={10} /> Local Insider Tips</div>
                 {plan.localTips.map((t, i) => (
                   <div key={i} className="tip-item">
