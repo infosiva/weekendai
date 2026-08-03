@@ -89,9 +89,17 @@ Return this exact JSON:
 }`
 
   try {
-    const { text } = await callAI(SYSTEM, [{ role: 'user', content: prompt }], 2000, 'best')
-    const clean = text.replace(/```json\n?|```\n?/g, '').trim()
-    const plan: WeekendPlan = JSON.parse(clean)
+    const { text } = await callAI(SYSTEM, [{ role: 'user', content: prompt }], 4000, 'best')
+    let clean = text.replace(/```json\n?|```\n?/g, '').trim()
+    let plan: WeekendPlan
+    try {
+      plan = JSON.parse(clean)
+    } catch {
+      // Model output got truncated mid-string — salvage by closing at the last complete object.
+      const lastBrace = clean.lastIndexOf('}')
+      if (lastBrace === -1) throw new Error('no valid JSON in AI response')
+      plan = JSON.parse(clean.slice(0, lastBrace + 1))
+    }
     return NextResponse.json(plan)
   } catch (e: any) {
     console.error('[plan]', e.message)
