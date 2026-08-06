@@ -5,6 +5,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { callAI } from '@/lib/ai'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 export const maxDuration = 60
 
@@ -36,6 +37,8 @@ Never generic. Always specific. Include hidden gems locals love.
 Respond with valid JSON only.`
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
+
   const body = await req.json().catch(() => ({}))
   const { city, budget, vibe, people, date, extras } = body as {
     city:    string

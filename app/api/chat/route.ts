@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Groq from 'groq-sdk'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 let _groq: Groq | null = null
 function groq() { if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY! }); return _groq }
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
+
   try {
     const { messages, system } = await req.json()
     const sysPrompt = system ?? 'You are WeekendAI — a weekend activity planner. Help users discover things to do, plan outings, find restaurants, events, and make the most of their weekend. Be fun and concise.'
