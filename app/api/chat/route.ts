@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const { messages, system } = await req.json()
     const sysPrompt = system ?? 'You are WeekendAI — a weekend activity planner. Help users discover things to do, plan outings, find restaurants, events, and make the most of their weekend. Be fun and concise.'
     const res = await groq().chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'qwen/qwen3.8-27b',
       messages: [{ role: 'system', content: sysPrompt }, ...messages],
       max_tokens: 400,
     })
