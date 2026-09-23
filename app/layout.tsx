@@ -8,6 +8,7 @@ import type { BrandConfig } from '@/components/SharedNavbar'
 import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
+import { getSiteFlags } from '@/lib/flags'
 
 const brand: BrandConfig = {
   name: 'WeekendAI',
@@ -51,7 +52,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const flags = await getSiteFlags('weekendai')
   return (
     <html lang="en">
       <head>
@@ -120,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SharedNavbar brand={brand} />
         <main className="flex-1 pt-16">{children}</main>
         <SharedFooter brand={brand} />
-        <FloatingChatWrapper />
+        {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="WeekendAI" />
         <Script defer data-site="weekendai.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
         <BackToTop accentColor="#ea580c" />
