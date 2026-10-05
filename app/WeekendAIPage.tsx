@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import { MagneticButton } from "@infosiva/shared-ui/modern";
 import { useState, useEffect, useRef } from 'react'
 import { MapPin, Wallet, Lightbulb, ExternalLink, Share2, RefreshCw, ChevronDown, ChevronUp, Clock, Users } from 'lucide-react'
 import VoiceButton from '@/components/VoiceButton'
@@ -309,9 +310,9 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
             {error && <div className="err">{error}</div>}
 
-            <button className="gen-btn" disabled={loading} onClick={() => generate()}>
+            <MagneticButton className="gen-btn" disabled={loading} onClick={() => generate()}>
               {loading ? 'Planning…' : '✨ Plan my weekend'}
-            </button>
+            </MagneticButton>
           </div>
 
           <div className="feat-pills">

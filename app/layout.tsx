@@ -10,6 +10,7 @@ import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
 
+import { MotionProvider } from "@infosiva/shared-ui/modern";
 const brand: BrandConfig = {
   name: 'WeekendAI',
   tagline: 'Your weekend, planned by AI — hidden gems, real costs, zero tourist traps.',
@@ -120,7 +121,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div className="grain" aria-hidden />
         <DesignEffects />
         <SharedNavbar brand={brand} />
-        <main className="flex-1 pt-16">{children}</main>
+        <main className="flex-1 pt-16"><MotionProvider>{children}</MotionProvider></main>
         <SharedFooter brand={brand} />
         {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="WeekendAI" />
