@@ -798,3 +798,6 @@ pre {
 @media (prefers-reduced-motion: reduce) {
   .aurora-primary, .aurora-secondary, .aurora-third { animation: none; }
 }
+
+/* AnimatedBg token (follows hub/theme background) */
+:root{--bg:var(--background,#fffbf5)}

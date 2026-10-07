@@ -12,6 +12,7 @@ import { getSiteFlags } from '@/lib/flags'
 import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet } from '@/lib/theme-loader'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
+import { AnimatedBg } from '@/components/AnimatedBg'
 const brand: BrandConfig = {
   name: 'WeekendAI',
   tagline: 'Your weekend, planned by AI — hidden gems, real costs, zero tourist traps.',
@@ -118,6 +119,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {themeCss && <style dangerouslySetInnerHTML={{ __html: themeCss }} />}
       </head>
       <body className="flex flex-col min-h-screen">
+        <AnimatedBg theme={theme} fallback="mesh" />
         <div className="aurora aurora-primary" aria-hidden />
         <div className="aurora aurora-secondary" aria-hidden />
         <div className="aurora aurora-third" aria-hidden />
