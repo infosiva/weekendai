@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Logo from '@/components/Logo'
 
 export interface NavLink { label: string; href: string; external?: boolean }
 export interface BrandConfig {
@@ -40,15 +41,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
         <div className="max-w-5xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group select-none">
-            <span
-              className="text-lg leading-none transition-transform duration-200 group-hover:scale-110"
-              aria-hidden
-            >
-              {brand.icon}
-            </span>
-            <span className="font-semibold text-[#1c1410]/90 text-sm tracking-tight">
-              {brand.name}
-            </span>
+            <Logo size={26} />
           </Link>
 
           {/* Desktop links */}
@@ -72,9 +65,9 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
           <div className="hidden md:flex items-center">
             <Link
               href={cta.href}
-              className="px-3.5 py-1.5 text-[13px] font-medium rounded-lg border transition-all duration-150 hover:-translate-y-px active:translate-y-0"
+              className="px-3.5 py-2.5 min-h-[44px] inline-flex items-center text-[13px] font-medium rounded-lg border transition-all duration-150 hover:-translate-y-px active:translate-y-0"
               style={{
-                color: brand.color,
+                color: '#9a3412',
                 borderColor: `${brand.color}40`,
                 background: `${brand.color}10`,
               }}
@@ -86,7 +79,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(v => !v)}
-            className="md:hidden flex flex-col gap-1.5 p-2 rounded-md text-[#1c1410]/50 hover:text-[#1c1410]/80 transition-colors"
+            className="md:hidden flex flex-col gap-1.5 p-3 min-h-[44px] min-w-[44px] justify-center rounded-md text-[#1c1410]/50 hover:text-[#1c1410]/80 transition-colors"
             aria-label={open ? 'Close menu' : 'Open menu'}
           >
             <span className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${open ? 'translate-y-[7px] rotate-45' : ''}`} />
@@ -111,8 +104,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
         >
           <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-black/[0.05]">
             <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-              <span className="text-lg">{brand.icon}</span>
-              <span className="font-semibold text-[#1c1410]/90 text-sm">{brand.name}</span>
+              <Logo size={26} />
             </Link>
             <button onClick={() => setOpen(false)} className="p-1.5 text-[#1c1410]/40 hover:text-[#1c1410]/80 transition-colors">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -134,7 +126,7 @@ export default function SharedNavbar({ brand }: { brand: BrandConfig }) {
               href={cta.href}
               onClick={() => setOpen(false)}
               className="px-3 py-2.5 text-sm font-medium rounded-lg text-center transition-all"
-              style={{ color: brand.color, background: `${brand.color}15` }}
+              style={{ color: '#9a3412', background: `${brand.color}22` }}
             >
               {cta.label}
             </Link>

@@ -1,6 +1,5 @@
 'use client'
 import { motion } from 'framer-motion'
-import { MagneticButton } from "@infosiva/shared-ui/modern";
 import { useState, useEffect, useRef } from 'react'
 import { MapPin, Wallet, Lightbulb, ExternalLink, Share2, RefreshCw, ChevronDown, ChevronUp, Clock, Users } from 'lucide-react'
 import VoiceButton from '@/components/VoiceButton'
@@ -25,12 +24,12 @@ const T = {
   s1: '#fff5e9',
   s2: '#ffece0',
   border: 'rgba(28,20,16,0.08)',
-  border2: 'rgba(234,88,12,0.25)',
+  border2: 'rgba(249,115,22,0.25)',
   text: '#1c1410',
-  muted: 'rgba(28,20,16,0.45)',
-  amber: '#ea580c',
+  muted: 'rgba(28,20,16,0.7)',
+  amber: '#f97316',
   amber2: '#c2410c',
-  orange: '#fb923c',
+  orange: '#fdba74',
   green: '#16a34a',
 }
 
@@ -48,7 +47,7 @@ const VIBES = [
 const TYPE_COLORS: Record<string, { bg: string; color: string }> = {
   outdoor:   { bg: 'rgba(22,163,74,0.10)', color: '#15803d' },
   indoor:    { bg: 'rgba(37,99,235,0.10)', color: '#1d4ed8' },
-  food:      { bg: 'rgba(234,88,12,0.10)', color: '#c2410c' },
+  food:      { bg: 'rgba(249,115,22,0.10)', color: '#c2410c' },
   nightlife: { bg: 'rgba(168,85,247,0.10)', color: '#9333ea' },
   culture:   { bg: 'rgba(217,119,6,0.10)', color: '#b45309' },
   sport:     { bg: 'rgba(220,38,38,0.10)', color: '#dc2626' },
@@ -68,13 +67,13 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
       <div style={{ width: 3, flexShrink: 0, background: tc.color, opacity: 0.7, borderRadius: '0 0 0 0' }} />
       <div style={{ flex: 1, minWidth: 0 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 14px', cursor: 'pointer' }} onClick={() => setOpen(v => !v)}>
-        <div style={{ fontSize: 11, color: T.amber, fontWeight: 700, minWidth: 36, paddingTop: 2, flexShrink: 0 }}>{act.time}</div>
+        <div style={{ fontSize: 11, color: T.amber2, fontWeight: 700, minWidth: 36, paddingTop: 2, flexShrink: 0 }}>{act.time}</div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontSize: 13, fontWeight: 700, color: T.text }}>{act.title}</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
               <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 100, background: tc.bg, color: tc.color, fontWeight: 600 }}>{act.type}</span>
-              <span style={{ fontSize: 11, color: T.amber, fontWeight: 700 }}>{act.cost}</span>
+              <span style={{ fontSize: 11, color: T.amber2, fontWeight: 700 }}>{act.cost}</span>
             </div>
           </div>
           <p style={{ fontSize: 11, color: T.muted, marginTop: 3, lineHeight: 1.4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: open ? 'unset' : 1, WebkitBoxOrient: 'vertical' }}>{act.description}</p>
@@ -85,7 +84,7 @@ function ActivityCard({ act, index }: { act: Activity; index: number }) {
         <div style={{ padding: '0 14px 12px', borderTop: `1px solid rgba(28,20,16,0.05)` }}>
           <p style={{ fontSize: 12, color: 'rgba(28,20,16,0.65)', lineHeight: 1.55, marginBottom: act.tip ? 10 : 0 }}>{act.description}</p>
           {act.tip && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(234,88,12,0.07)', border: '1px solid rgba(234,88,12,0.18)', borderRadius: 8, padding: '8px 10px', marginBottom: act.bookingUrl ? 10 : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, background: 'rgba(249,115,22,0.07)', border: '1px solid rgba(249,115,22,0.18)', borderRadius: 8, padding: '8px 10px', marginBottom: act.bookingUrl ? 10 : 0 }}>
               <Lightbulb size={11} color={T.amber} style={{ flexShrink: 0, marginTop: 1 }} />
               <span style={{ fontSize: 11, color: 'rgba(28,20,16,0.7)' }}>{act.tip}</span>
             </div>
@@ -157,7 +156,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
           freeLimit={3}
           freeFeature="weekend plans"
           lockedFeature="unlimited weekend plans"
-          accentColor={T.amber}
+          accentColor={T.amber2}
           site="weekendai"
           onSuccess={onRegistered}
           onDismiss={dismissGate}
@@ -165,7 +164,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
       )}
       <div style={{ background: T.bg, color: T.text, fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
         <style>{`
-          *{box-sizing:border-box;margin:0;padding:0}
+          *{box-sizing:border-box}
           a{text-decoration:none}
           .nav{position:sticky;top:0;z-index:50;background:rgba(255,251,245,0.9);backdrop-filter:blur(16px);border-bottom:1px solid ${T.border};padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between}
           .logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;color:${T.text};letter-spacing:-0.3px}
@@ -175,44 +174,45 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
           h1 span{background:linear-gradient(135deg,${T.amber},${T.amber2});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
           .sub{font-size:13px;color:${T.muted};margin-bottom:20px}
           .vibes{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
-          .vibe-btn{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:${T.s1};color:rgba(28,20,16,0.55);cursor:pointer;transition:all 0.15s;white-space:nowrap}
-          .vibe-btn.sel{border-color:rgba(234,88,12,0.45);background:rgba(234,88,12,0.10);color:${T.amber};box-shadow:0 0 12px rgba(234,88,12,0.12)}
+          .vibe-btn{min-height:44px;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:${T.s1};color:rgba(28,20,16,0.55);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+          .vibe-btn.sel{border-color:rgba(249,115,22,0.45);background:rgba(249,115,22,0.10);color:${T.amber2};box-shadow:0 0 12px rgba(249,115,22,0.12)}
           .vibe-btn:hover:not(.sel){color:rgba(28,20,16,0.85);border-color:rgba(28,20,16,0.18)}
           .form-box{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:14px;margin-bottom:20px}
           .city-row{display:flex;gap:8px;margin-bottom:10px}
-          .inp{flex:1;background:#ffffff;border:1px solid ${T.border};border-radius:9px;padding:9px 12px;color:${T.text};font-size:13px;outline:none;transition:border-color 0.15s;font-family:inherit}
-          .inp:focus{border-color:rgba(234,88,12,0.45)}
+          .inp{flex:1;min-height:44px;background:#ffffff;border:1px solid ${T.border};border-radius:9px;padding:9px 12px;color:${T.text};font-size:16px;outline:none;transition:border-color 0.15s;font-family:inherit}
+          .inp:focus{border-color:rgba(249,115,22,0.45)}
           .inp::placeholder{color:rgba(28,20,16,0.32)}
-          .loc-btn{padding:9px 12px;border-radius:9px;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s;display:flex;align-items:center}
-          .loc-btn:hover{color:${T.amber};border-color:rgba(234,88,12,0.3)}
+          .loc-btn{min-height:44px;min-width:44px;padding:9px 12px;border-radius:9px;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s;display:flex;align-items:center}
+          .loc-btn:hover{color:${T.amber2};border-color:rgba(249,115,22,0.3)}
           .quick-cities{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-          .qc{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:600;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s}
-          .qc.sel,.qc:hover{background:rgba(234,88,12,0.10);border-color:rgba(234,88,12,0.3);color:${T.amber}}
+          .qc{min-height:44px;padding:4px 12px;border-radius:100px;font-size:10px;font-weight:600;background:#ffffff;border:1px solid ${T.border};color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .qc.sel,.qc:hover{background:rgba(249,115,22,0.10);border-color:rgba(249,115,22,0.3);color:${T.amber2}}
           .selects{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
           select.inp{appearance:none;cursor:pointer}
-          .gen-btn{width:100%;padding:13px;border-radius:11px;font-size:14px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,${T.amber},${T.amber2});color:#fff;transition:opacity 0.15s;letter-spacing:-0.2px}
+          .gen-btn{width:100%;min-height:48px;padding:13px;border-radius:11px;font-size:14px;font-weight:900;border:none;cursor:pointer;background:linear-gradient(135deg,#fb923c,${T.amber});color:#1c1410;transition:opacity 0.15s;letter-spacing:-0.2px}
           .gen-btn:hover{opacity:0.9}
           .gen-btn:disabled{opacity:0.4;cursor:not-allowed}
           .err{font-size:11px;color:#b91c1c;background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.18);border-radius:8px;padding:7px 10px;margin-bottom:10px}
           .feat-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
           .fp{padding:5px 10px;background:${T.s1};border:1px solid ${T.border};border-radius:7px;font-size:11px;color:${T.muted}}
           .loading-box{text-align:center;padding:40px 20px}
-          .spin{width:36px;height:36px;border:3px solid rgba(234,88,12,0.15);border-top-color:${T.amber};border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px}
+          .spin{width:36px;height:36px;border:3px solid rgba(249,115,22,0.15);border-top-color:${T.amber2};border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px}
           @keyframes spin{to{transform:rotate(360deg)}}
+          @media (prefers-reduced-motion: reduce){.spin{animation:none}*{transition:none!important}}
           .plan-header{background:${T.s1};border:1px solid ${T.border};border-radius:14px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
           .plan-emoji{font-size:28px}
           .plan-title{font-size:17px;font-weight:900;color:${T.text};margin-bottom:3px}
           .plan-meta{font-size:11px;color:${T.muted}}
           .day-toggle{background:${T.s1};border:1px solid ${T.border};border-radius:11px;padding:4px;display:flex;gap:4px;margin-bottom:14px}
-          .day-btn{flex:1;padding:9px;border-radius:8px;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all 0.15s;background:transparent;color:${T.muted}}
-          .day-btn.sel{background:linear-gradient(135deg,${T.amber},${T.amber2});color:#fff;box-shadow:0 2px 10px rgba(234,88,12,0.2)}
-          .section-label{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:${T.amber};margin-bottom:10px;display:flex;align-items:center;gap:6px}
+          .day-btn{flex:1;min-height:44px;padding:9px;border-radius:8px;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all 0.15s;background:transparent;color:${T.muted}}
+          .day-btn.sel{background:linear-gradient(135deg,#fb923c,${T.amber});color:#1c1410;box-shadow:0 2px 10px rgba(249,115,22,0.2)}
+          .section-label{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:${T.amber2};margin-bottom:10px;display:flex;align-items:center;gap:6px}
           .info-card{background:${T.s1};border:1px solid ${T.border};border-radius:12px;padding:14px;margin-bottom:12px}
           .budget-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(28,20,16,0.05);font-size:12px}
           .budget-row:last-child{border-bottom:none}
           .tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(28,20,16,0.65);margin-bottom:7px}
           .actions-row{display:flex;gap:8px;margin-top:4px;margin-bottom:28px}
-          .act-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:#ffffff;color:${T.muted};cursor:pointer;transition:all 0.15s}
+          .act-btn{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid ${T.border};background:#ffffff;color:${T.muted};cursor:pointer;transition:all 0.15s}
           .act-btn:hover{color:${T.text};border-color:rgba(28,20,16,0.18)}
           @media(max-width:480px){
             .selects{grid-template-columns:1fr}
@@ -220,12 +220,6 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
             h1{font-size:20px}
           }
         `}</style>
-
-        {/* Nav */}
-        <nav className="nav">
-          <div className="logo">☀️ WeekendAI</div>
-          <span style={{ fontSize: 11, color: T.muted }}>Plan your perfect weekend</span>
-        </nav>
 
         {/* Hero + Form */}
         <div className="hero">
@@ -310,9 +304,9 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
             {error && <div className="err">{error}</div>}
 
-            <MagneticButton className="gen-btn" disabled={loading} onClick={() => generate()}>
-              {loading ? 'Planning…' : '✨ Plan my weekend'}
-            </MagneticButton>
+            <button className="gen-btn" disabled={loading} onClick={() => generate()}>
+              {loading ? 'Planning…' : 'Plan my weekend'}
+            </button>
           </div>
 
           <div className="feat-pills">
@@ -327,7 +321,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
           <div className="w" style={{ paddingBottom: 32 }}>
             {/* Example weekend cards */}
             <div style={{ marginBottom: 8 }}>
-              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '1.2px', textTransform: 'uppercase', color: T.amber, marginBottom: 10 }}>✨ Example weekends</div>
+              <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '1.2px', textTransform: 'uppercase', color: T.amber2, marginBottom: 10 }}>✨ Example weekends</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10 }}>
                 {[
                   { emoji: '🎭', city: 'London', vibe: 'Culture', preview: 'Tate Modern → Borough Market → West End show' },
@@ -339,7 +333,7 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                     key={ex.city}
                     onClick={() => { setCity(ex.city); setVibe(ex.vibe.toLowerCase()) }}
                     style={{ background: T.s1, border: `1px solid ${T.border}`, borderRadius: 10, padding: '12px 14px', textAlign: 'left', cursor: 'pointer', transition: 'border-color 0.15s' }}
-                    onMouseOver={e => (e.currentTarget.style.borderColor = 'rgba(234,88,12,0.35)')}
+                    onMouseOver={e => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.35)')}
                     onMouseOut={e => (e.currentTarget.style.borderColor = T.border)}
                   >
                     <div style={{ fontSize: 20, marginBottom: 4 }}>{ex.emoji}</div>
@@ -389,9 +383,9 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                       display: 'flex', alignItems: 'center', gap: 5,
                       fontSize: 10, fontWeight: 700,
                       padding: '4px 10px', borderRadius: 99,
-                      background: 'rgba(234,88,12,0.08)',
-                      border: '1px solid rgba(234,88,12,0.18)',
-                      color: T.amber,
+                      background: 'rgba(249,115,22,0.08)',
+                      border: '1px solid rgba(249,115,22,0.18)',
+                      color: T.amber2,
                     }}>
                       <span>{s.icon}</span> {s.label}
                     </div>
@@ -443,11 +437,11 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
 
             {/* Local tips */}
             {plan.localTips?.length > 0 && (
-              <div className="info-card" style={{ borderColor: 'rgba(234,88,12,0.18)' }}>
+              <div className="info-card" style={{ borderColor: 'rgba(249,115,22,0.18)' }}>
                 <div className="section-label"><Lightbulb size={10} /> Local Insider Tips</div>
                 {plan.localTips.map((t, i) => (
                   <div key={i} className="tip-item">
-                    <span style={{ color: T.amber, flexShrink: 0 }}>→</span> {t}
+                    <span style={{ color: T.amber2, flexShrink: 0 }}>→</span> {t}
                   </div>
                 ))}
               </div>
@@ -465,9 +459,9 @@ export default function WeekendAIPage({ overrides = {} }: { overrides?: ContentO
                   ...(plan.saturday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
                   ...(plan.sunday ?? []).slice(0, 2).map(a => `${a.time} ${a.title} (${a.cost})`),
                 ]}
-                accentColor={T.amber}
+                accentColor={T.amber2}
                 productName="WeekendAI"
-                productUrl="weekendai.vercel.app"
+                productUrl="weekendai.app"
               />
             </div>
           </div>

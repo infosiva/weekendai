@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const ACCENT = '#ea580c'
+const ACCENT = '#f97316'
 const ACCENT_DARK = '#c2410c'
-const ACCENT_RGB = '234,88,12'
+const ACCENT_RGB = '249,115,22'
 const NAME = 'WeekendAI'
 const EMOJI = '🌅'
 const GREETING = "Hi! Tell me your city and what you're into — I'll plan your weekend 🎉"

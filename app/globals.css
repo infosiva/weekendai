@@ -9,15 +9,15 @@
    via CSS vars injected in layout.tsx
 ───────────────────────────────────────── */
 :root {
-  --background: #f0fdf4;
-  --accent:     #16a34a;
-  --accent-2:   #15803d;
-  --border:     #bbf7d0;
-  --surface-1:  #dcfce7;
-  --surface-2:  #bbf7d0;
-  --foreground: #052e16;
-  --text-2:     #166534;
-  --text-3:     #4ade80;
+  --background: #fffbf5;
+  --accent:     #f97316;
+  --accent-2:   #c2410c;
+  --border:     #fed7aa;
+  --surface-1:  #fff5e9;
+  --surface-2:  #ffece0;
+  --foreground: #1c1410;
+  --text-2:     #6b5d52;
+  --text-3:     #9a8575;
 
   --border-subtle:  rgb(28 20 16 / 0.05);
   --border-default: rgb(28 20 16 / 0.09);
@@ -33,7 +33,7 @@
   --radius-xl: 1.5rem;
 
   /* Theme vars — injected by layout.tsx */
-  --theme-primary:   #ea580c;
+  --theme-primary:   #f97316;
   --theme-secondary: #fb923c;
   --theme-base:      #fffbf5;
 }
@@ -755,7 +755,7 @@ pre {
   left: -8%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(234,88,12,0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(249,115,22,0.14) 0%, transparent 70%);
   animation: drift-a 16s ease-in-out infinite;
 }
 .aurora-secondary {

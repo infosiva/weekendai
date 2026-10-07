@@ -9,18 +9,16 @@ import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
+import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet } from '@/lib/theme-loader'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
 const brand: BrandConfig = {
   name: 'WeekendAI',
   tagline: 'Your weekend, planned by AI — hidden gems, real costs, zero tourist traps.',
   icon: '🗓️',
-  color: '#ea580c',
+  color: '#f97316',
   url: 'https://weekendai.app',
-  navLinks: [
-    { label: 'How it works', href: '#how' },
-    { label: 'Cities', href: '#cities' },
-  ],
+  navLinks: [],
   cta: { label: 'Plan my weekend →', href: '/' },
 }
 
@@ -55,6 +53,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const flags = await getSiteFlags('weekendai')
+  const theme = await loadSiteTheme('weekendai')
+  const themeCss = buildThemeStyleTag(theme)
+  const ga4 = buildGa4Snippet(theme)
   return (
     <html lang="en">
       <head>
@@ -96,23 +97,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+        {ga4 && <script dangerouslySetInnerHTML={{ __html: ga4 }} />}
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
-            --theme-primary: #ea580c;
-            --theme-secondary: #fb923c;
+            --theme-primary: #f97316;
+            --theme-secondary: #fdba74;
             --theme-base: #fffbf5;
             --background: #fffbf5;
             --surface-1: #fff5e9;
             --surface-2: #ffece0;
             --foreground: #1c1410;
             --text-2: #6b5d52;
-            --border-default: rgba(234,88,12,0.15);
-            --border-strong: rgba(234,88,12,0.3);
+            --border-default: rgba(249,115,22,0.15);
+            --border-strong: rgba(249,115,22,0.3);
           }
           body { font-family: 'Inter', system-ui, sans-serif !important; }
           h1, h2, h3 { font-family: 'Fraunces', serif !important; font-style: italic; }
-          .glass { background: rgba(255,251,245,0.80) !important; border-color: rgba(234,88,12,0.12) !important; }
+          .glass { background: rgba(255,251,245,0.80) !important; border-color: rgba(249,115,22,0.12) !important; }
         ` }} />
+        {themeCss && <style dangerouslySetInnerHTML={{ __html: themeCss }} />}
       </head>
       <body className="flex flex-col min-h-screen">
         <div className="aurora aurora-primary" aria-hidden />
@@ -125,8 +128,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SharedFooter brand={brand} />
         {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="WeekendAI" />
-        <Script defer data-site="weekendai.app" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
-        <BackToTop accentColor="#ea580c" />
+        <BackToTop accentColor="#f97316" />
       </body>
     </html>
   )
