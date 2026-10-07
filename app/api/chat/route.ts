@@ -1,3 +1,4 @@
+import { sanitizeUserInput } from '@/lib/guard'
 import { NextRequest, NextResponse } from 'next/server'
 import { AI_LIMITER } from '@/lib/rateLimit'
 
@@ -42,6 +43,8 @@ export async function POST(req: NextRequest) {
   const limited = AI_LIMITER.check(req); if (limited) return limited
   try {
     const body = await req.json()
+    if (body && Array.isArray(body.messages)) for (const m of body.messages) if (m && typeof m.content === 'string') m.content = sanitizeUserInput(m.content).text
+    if (body && typeof body.message === 'string') body.message = sanitizeUserInput(body.message).text
     const history: Msg[] = Array.isArray(body.messages) ? body.messages.slice(-10).map((m: Msg) => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content ?? '').slice(0, 1000) })) : []
     const msgs: Msg[] = [{ role: 'system', content: SYSTEM }, ...history]
     const text =
